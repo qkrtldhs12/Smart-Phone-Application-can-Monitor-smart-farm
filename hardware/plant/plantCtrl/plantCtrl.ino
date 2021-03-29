@@ -1,6 +1,7 @@
-/*
-   조도측정과 조명제어, 수분도 측정과 수분 공급 통합
-*/
+#include "DHT.h"
+
+#define DHTPIN 2    // 온습도센서
+#define DHTTYPE DHT11
 #define light 5     // 식물조명제어
 #define waterOUT 6  // 수분공급펌프
 #define buzz 7      // 물 잔량 경고알람
@@ -10,20 +11,36 @@
 #define waterIN A0  // 수분감지센서
 #define lux A1      // 조도센서
 
+DHT dht(DHTPIN, DHTTYPE);
+
 int moment = 100;
 int lumi;  // 조도센서 측정값
 int level; // 수분감지센서 측정값
 int wet = 10; // 식물마다 적절한 토양수분도
 int gap = 5; // 수분도 경계값
+float humidity; // 습도변수
+float temperature;  // 온도변수
 
 void setup() {
   Serial.begin(9600);
+  dht.begin();
 
   pinMode(light, OUTPUT);
   pinMode(red, OUTPUT);
   pinMode(green, OUTPUT);
   pinMode(blue, OUTPUT);
   pinMode(waterOUT, OUTPUT);
+
+  Serial.print("셀번호");
+  Serial.print(",");
+  Serial.print("토양수분");
+  Serial.print(",");
+  Serial.print("조도");
+  Serial.print(",");
+  Serial.print("온도");
+  Serial.print(",");
+  Serial.print("습도");
+  Serial.println(" ");
 }
 
 void loop() {
@@ -31,14 +48,8 @@ void loop() {
   level = map(level, 0, 1023, 0, 100); // 수분도 퍼센트 변환
   lumi = analogRead(lux);
   lumi = map(lumi, 0, 1023, 100, 0);   // 조도센서는 어두우면 값이 커진다.
-
-  // 시리얼 모니터를 통해 출력되는 값들
-  Serial.print("cell_1"); // 셀 숫자는 각 셀마다 바꿔줘야함
-  Serial.print(",");
-  Serial.print(level);
-  Serial.print(",");
-  Serial.print(lumi);
-  Serial.println(" ");
+  humidity=dht.readHumidity();
+  temperature=dht.readTemperature();
 
   // 조명제어 프로세스
   if (lumi < 50) { // 밝기가 50% 이하일때, 조명 100% 사용
@@ -105,5 +116,18 @@ void loop() {
     digitalWrite(buzz, LOW);
     delay(moment);
   }
+
+  // 시리얼 모니터를 통해 출력되는 값들
+  Serial.print("cell_1"); // 셀 숫자는 각 셀마다 바꿔줘야함
+  Serial.print(",");
+  Serial.print(level);
+  Serial.print(",");
+  Serial.print(lumi);
+  Serial.print(",");
+  Serial.print((int)temperature);
+  Serial.print(",");
+  Serial.print((int)humidity);
+  Serial.println(" ");
+  
   delay(10 * moment);
 }
