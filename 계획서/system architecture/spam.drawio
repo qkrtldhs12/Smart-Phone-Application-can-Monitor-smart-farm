@@ -1,1 +1,148 @@
-<mxfile host="app.diagrams.net" modified="2021-05-13T13:59:20.641Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="ZOFVteL37XaWVfo94Rz5" version="14.6.12" type="device"><diagram name="Page-1" id="c7558073-3199-34d8-9f00-42111426c3f3">7Vpfc6M2EP80nrk+xANIgHmMSXI3bTOTOXfm2kfZKLZ6GFEhx/Z9+kogDEj4T2Li0J49Nxe0WqTV7m93tUgDEC43nxlKF480wvHAsaLNANwNHMeGjjOQ/6xoW1D8ABaEOSORYqoIE/IDK6KlqCsS4azByCmNOUmbxBlNEjzjDRpijK6bbM80bs6aojk2CJMZik3qNxLxRUEdOV5F/4LJfFHObHtB0TNFs+9zRleJmm/ggOf8V3QvUTmWWmi2QBFd10jgfgBCRikvnpabEMdSt6Xaivce9vTu5GY44ae8AIoXXlC8UkufLBHjgvS0oAkeyBUDYRUw/hTGRAz6i5Kbb0tdrReE40mKZrK9FngQzCgm80Q0Z+INzAThBTNOhH5vVceSRJEcYPxMEz5Rg9minXFGv++UDiQHieOQxpTl04EH8QtDc51q6XIivKmR1Lo/Y7rEnG0FS9kbKBsojLoKouvK4DZUBl/UjD1SfEhhbL4budKzeFCqble7a6j9EZFEUCaYiRV8+oqydIpZLu4TMXUuYJPKx5TRGc6EIOPzrJAVHmgNLei7b7NKGHZiFceCDas4pZVqZoF2YJrFtc43Sxl+anYRHhCLGcZpwwDePyvpoWPhK3NhN3Areq10I/4XxNzPJf2G07Tog7U+oQh+o0wj+5R1Gt0RnlGGOKGKR8QTzGKSO6SaWjzN1d9cwCnTKWK1qU7r7TImOMkoaxddA/9eFBt4p4L1Oc7jq8RrCewC7Laj2g9oSWIJty84fsFyaNGx4MtYgT8P5zhSrVe7xr3XUcByLLsZsGzTNbzR0DV9w+vCNxzDN+4QR1OU4f9NSoCwmRKENwyt+g8YCi/DU9fqds0UYagZR2LTopo4ntL1fUUY5wTRsaCM/BAaRfFOlTXVBYFclqFk6RpCjWz7Z54V3LL5lzJJ3riTWrN2ra1q7bUDF9EE88a+Q67goGHqydhqUfWOyHAsAs1Lc//WZgA1xxMlCa/5lgealh9pNszois2wequ+oTIGakIIlHvGcqBCC8ZAt4yhbY0tlQzZ6wXeL5fG39wYiodCggqcOyuchlfvw/G6IbyAq2d7qp3jdWjZZX8FWdnY1hpPmBGxXBmZDqO4AEJPUTw6Ar6TUawNZLhDVyjWBfa6RWVQpoBafVNsNEJncGvVyhuZywzAyk2MxJrIZCSZ/yG3QXc3rpnMOsg8tqYI18ztfgtyYAepJjCLwIu67imeVqqnN66m7RR2e7HXehrwmwNBfaCuPE0X2DqWLzS5juUXoPH73Xry2He/rjP36+Ov99PfuLNltrO8sa026Pa80rkWbP+hgs2I4C2Ran/Bpn9humjBtsdj4NVjrh7TV48B/mjou/1zmrZivOdouzrNz+I00O9hmmn7HNBzqF095mfxGNfrn8fYfajCtfL6JJ1equIGDti7Nzi76gbaQB1V3W0yHym8ATReOVZ7A9t85SLlt91WTFwxW0vN5anZuYDVB4JQk6UjwBoCH0ErBJpcR6AKLY3/Mjj94MO03uPUtZqnQ255w+LVOIXB0NFC0TvFVkNmKzgomus0+eHoMD8MNH6/wf9eUP3gc7TeQ9XTb0E4bw2p0Deg+k4f3w2Z7cNR0nOa/DA4zO8GGv/oElHVMQ/XDkKVMr6gc5qguI7XqiaQcKx4fqf5cZssDP7GnG9VrYFWnDaLilMh2zxQ2uN9QTu4z94GaKd7+rHdHpx1F1UCw1S3LFqRhBoW+8C7O2d+OnT0TTAYmWWdD9vKui4uD+5xEvNKYSh0xGhsHEHvbt4itjTM8qqj6DNPLQxF2i2XMEctMf4Np9GiWd12LvBeXSkH9/8C</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-05-13T15:36:21.785Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36 Edg/90.0.818.56" etag="8oAwl6AWbnl_mr5Ej4P7" version="14.6.12" type="github">
+  <diagram name="Page-1" id="c7558073-3199-34d8-9f00-42111426c3f3">
+    <mxGraphModel dx="786" dy="1901" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mAzok97Fx_akdlN_9FRy-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontSize=20;strokeWidth=3;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="5" target="mAzok97Fx_akdlN_9FRy-94">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="230" />
+              <mxPoint x="305" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=20;strokeWidth=3;" edge="1" parent="1" source="5" target="mAzok97Fx_akdlN_9FRy-93">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-108" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;strokeWidth=3;" edge="1" parent="1" source="5" target="mAzok97Fx_akdlN_9FRy-107">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-120" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="5" target="mAzok97Fx_akdlN_9FRy-118">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-121" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="5" target="mAzok97Fx_akdlN_9FRy-119">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Server&amp;Processor&#xa;(Raspberry Pi)" style="shape=process;whiteSpace=wrap;align=center;verticalAlign=middle;size=0.0475;fontStyle=1;strokeWidth=5;fillColor=#FFCCCC;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="230" y="280" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-111" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-93" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-115" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-93" target="mAzok97Fx_akdlN_9FRy-99">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="663" y="54" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.004;entryY=0.078;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-93" target="mAzok97Fx_akdlN_9FRy-103">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="663" y="135" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-93" value="Database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=20;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="600" y="295" width="126" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-110" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-94" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="305" y="230" />
+              <mxPoint x="360" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-94" value="&lt;br&gt;&lt;br&gt;&lt;br&gt;SmartPhone&lt;br&gt;&amp;amp;&lt;br&gt;User" style="shape=actor;whiteSpace=wrap;html=1;fontSize=20;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="235" width="140" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-99" value="UserInfo" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=24;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="40" width="240" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-100" value="+ String: User name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" vertex="1" parent="mAzok97Fx_akdlN_9FRy-99">
+          <mxGeometry y="30" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-103" value="Smart Farm Data" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=24;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="120" width="240" height="186" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-104" value="+ integer: Cell number" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" vertex="1" parent="mAzok97Fx_akdlN_9FRy-103">
+          <mxGeometry y="30" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-105" value="+ Integer: Sensor soil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" vertex="1" parent="mAzok97Fx_akdlN_9FRy-103">
+          <mxGeometry y="56" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-112" value="+ Integer: Sensor lumi" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" vertex="1" parent="mAzok97Fx_akdlN_9FRy-103">
+          <mxGeometry y="82" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-106" value="+ Integer: Sensor temp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" vertex="1" parent="mAzok97Fx_akdlN_9FRy-103">
+          <mxGeometry y="108" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-113" value="+ Integer: Sensor humi" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" vertex="1" parent="mAzok97Fx_akdlN_9FRy-103">
+          <mxGeometry y="134" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-114" value="+ Datetime: yyyymmddhhmm" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" vertex="1" parent="mAzok97Fx_akdlN_9FRy-103">
+          <mxGeometry y="160" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-109" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=20;strokeWidth=3;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-107" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="305" y="470" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="360" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-133" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-107" target="mAzok97Fx_akdlN_9FRy-125">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-134" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-107" target="mAzok97Fx_akdlN_9FRy-126">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-135" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-107" target="mAzok97Fx_akdlN_9FRy-127">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-107" value="Controller&lt;br style=&quot;font-size: 20px;&quot;&gt;(Arduino)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;strokeWidth=3;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="410" y="460" width="155" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-118" value="Controller&lt;br style=&quot;font-size: 20px;&quot;&gt;(Arduino)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;strokeWidth=3;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="410" y="560" width="155" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-119" value="Controller&lt;br style=&quot;font-size: 20px;&quot;&gt;(Arduino)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;strokeWidth=3;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="410" y="730" width="155" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-128" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-122" target="mAzok97Fx_akdlN_9FRy-107">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-122" value="PP-A138&lt;br&gt;토양수분센서" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="375" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-132" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-123" target="mAzok97Fx_akdlN_9FRy-107">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-123" value="CDS&lt;br&gt;조도센서" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="445" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-131" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;strokeWidth=3;" edge="1" parent="1" source="mAzok97Fx_akdlN_9FRy-124" target="mAzok97Fx_akdlN_9FRy-107">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-124" value="DHT11&lt;br&gt;온습도센서" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="515" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-125" value="DC Motor&lt;br&gt;수중모터펌프" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="585" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-126" value="NeoPixel LED&lt;br&gt;식물조명장치" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="655" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mAzok97Fx_akdlN_9FRy-127" value="Heating cable&lt;br&gt;발열장치" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="760" y="730" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
