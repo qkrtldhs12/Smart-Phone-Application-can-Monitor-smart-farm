@@ -1,12 +1,12 @@
 #include "DHT.h"
+#include "soilLevel.h"
 
 #define DHTPIN 2    // 온습도센서
 #define DHTTYPE DHT11
-#define light 5     // 식물조명제어
 #define waterOUT 6  // 수분공급펌프
-#define red 9       // 적색LED
+#define red 11       // 적색LED
 #define green 10    // 녹색LED
-#define blue 11     // 청색LED
+#define blue 9     // 청색LED
 #define waterIN A0  // 수분감지센서
 #define lux A1      // 조도센서
 
@@ -15,11 +15,8 @@ DHT dht(DHTPIN, DHTTYPE);
 int moment = 3000;
 int lumi;  // 조도센서 측정값
 int level; // 수분감지센서 측정값
-int wet = 10; // 식물마다 적절한 토양수분도
-int gap = 5; // 수분도 경계값
 float humidity; // 습도변수
 float temperature;  // 온도변수
-int arr[5] = {4, 9, 14, 19, 24};
 
 void setup() {
   Serial.begin(9600);
@@ -64,20 +61,8 @@ void loop() {
     analogWrite(light, 0);
   }
 
-  // 시리얼 모니터를 통해 출력되는 값들
-  Serial.print("cell_1"); // 셀 숫자는 각 셀마다 바꿔줘야함
-  Serial.print(",");
-  Serial.print(level);
-  Serial.print(",");
-  Serial.print(lumi);
-  Serial.print(",");
-  Serial.print((int)temperature);
-  Serial.print(",");
-  Serial.print((int)humidity);
-  Serial.println(" ");
-
   // 수분제어 프로세스
-  if (level < wet - gap) {
+  if (level > redLevel) {
     // 물이 없어 물을 주지 못하는 상황(적색경보)
     // 적색 LED 출력 및 부저ON
     // 어플리케이션에 물잔량에 관해 알림이 필요한 상황
@@ -87,7 +72,7 @@ void loop() {
     digitalWrite(waterOUT, LOW);
     delay(moment);
   }
-  else if (level >= wet - gap && level < wet) {
+  else if (level <= redLevel && level > greenLevel) {
     // 토양수분도가 낮아 수분공급이 필요한 상황(황색경보)
     // 수중펌프를 작동시켜 수분공급
     analogWrite(red, 150);
@@ -96,7 +81,7 @@ void loop() {
     digitalWrite(waterOUT, HIGH);
     delay(moment);
   }
-  else if (level >= wet && level < wet + gap) {
+  else if (level <= greenLevel && level > blueLevel) {
     // 토양수분도가 적절하여 그대로 두어도 되는 상황(녹색경보)
     // 녹색 LED or 청록색 LED 출력
     analogWrite(red, 0);
@@ -105,7 +90,7 @@ void loop() {
     digitalWrite(waterOUT, LOW);
     delay(moment);
   }
-  else if (level >= wet + gap) {
+  else if (level <= blueLevel) {
     // 토양에 수분이 과하게 많은 경우(청색경보)
     // 청색 LED 출력 및 부저ON
     // 어플리케이션에 이상알림 필요
@@ -123,4 +108,16 @@ void loop() {
     digitalWrite(waterOUT, LOW);
     delay(moment);
   }
+
+  // 시리얼 모니터를 통해 출력되는 값들
+  Serial.print("cell_1"); // 셀 숫자는 각 셀마다 바꿔줘야함
+  Serial.print(",");
+  Serial.print(level);
+  Serial.print(",");
+  Serial.print(lumi);
+  Serial.print(",");
+  Serial.print((int)temperature);
+  Serial.print(",");
+  Serial.print((int)humidity);
+  Serial.println(" ");
 }
