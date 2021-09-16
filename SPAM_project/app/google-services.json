@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1076274982009",
+    "firebase_url": "https://spam-85498-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "spam-85498",
+    "storage_bucket": "spam-85498.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076274982009:android:727b3fb6a7e90f848f38a8",
+        "android_client_info": {
+          "package_name": "com.example.spam_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076274982009-n2vo34ee58if061lh1s0ahv79rlp4gbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spam_project",
+            "certificate_hash": "2c2591a1325e2796507d98f29194024e07296262"
+          }
+        },
+        {
+          "client_id": "1076274982009-stkq276n443qb3u47jqqs3ni9lhergmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK7-Isp7zYk7R0kvf83EFav_bV6d6CeFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076274982009-stkq276n443qb3u47jqqs3ni9lhergmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
