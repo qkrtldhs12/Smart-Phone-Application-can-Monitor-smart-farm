@@ -1,5 +1,6 @@
 from serial import Serial
 import time
+from datetime import datetime
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -22,36 +23,38 @@ doc_ref = db.collection('Device_data').document(Device_id)
 # Firestore에서 Device_data 컬렉션 내부에 Device_id를 이름으로 현재 데이터값 갱신
 
 while ser1.readable() or ser2.readable():
+    now=datetime.now()
     if ser1.readable():
         res1=ser1.readline()
         res1=str(res1)
         ref1=list(res1.split(','))
         ref1[0]=ref1[0][-1]
         ref1[3]=ref1[3][:-6]
-        print(ref1)
+        # print(ref1)                                                 
 
     if ser2.readable():
+        now2=datetime
         res2=ser2.readline()
         res2=str(res2)
         ref2=list(res2.split(','))
         ref2[0]=ref2[0][-1]
         ref2[3]=ref2[3][:-6]
-        print(ref2)
+        # print(ref2)
 
-    doc_ref.set({
+    doc_ref.up({
     'cell' : {
-        'cell_'+ref1[0] : {
+        'cell_'+ref1[0]+'_'+now.year+now.month+now.day+now.hour+now.minute : {
             'Soil' : ref1[1],
             'Temp' : ref1[2],
             'Humi' : ref1[3]
         },
-        'cell_'+ref2[0] : {
+        'cell_'+ref2[0]+'_'+now.year+now.month+now.day+now.hour+now.minute : {
             'Soil' : ref2[1],
             'Temp' : ref2[2],
             'Humi' : ref2[3]
         }
     }
-})
+    })
     # TODO: 센서 측정값, 제어시 사용할 변수값 JSON 형태로 DB 스키마 참고해서 추가할 것
     
     # TODO: 접속 형태만 만들었으니 알아서 자동갱신 할 수 있게 모듈화 해서 쓸 것
