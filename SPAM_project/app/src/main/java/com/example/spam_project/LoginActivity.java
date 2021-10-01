@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Button lg_btn = (Button)findViewById(R.id.lg_button);
+        Button lg_btn = (Button)findViewById(R.id.lgn_button);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 signIn();
             }
-            //TODO: 어차피 구글 로그인만 사용할 예정이므로 로그인 버튼 제거하고 Create와 동시에 signIn 실행될 수 있도록 수정할 것
         });
     }
 
@@ -83,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                             updateUI(user);
                         }
                         else {
-
+                            //로그인 실패
                         }
                     }
                 });
@@ -92,11 +91,12 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if(user != null) {
             DB_Controller.User_Check(user.getEmail());
-            //TODO: User_info.Email.Device_Number가 null인지 체크하는 메소드(Device_Check)를 DB_Controller에 만들기
-            //TODO: Device_Check의 결과에 따라 기기등록액티비티 or 대시보드액티비티로 이동할 수 있도록 구현
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         }
         else {
             Log.d("로그인", "실패");
         }
     }
+
 }

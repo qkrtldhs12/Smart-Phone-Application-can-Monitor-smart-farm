@@ -1,6 +1,8 @@
 package com.example.spam_project;
 
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -12,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -27,12 +30,14 @@ public class DB_Controller {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                Log.d("DB_Check 테스트", document.getId());
+                                Log.d("DB_Check", "User_info 존재함");
                             } else {
+                                //등록된 이메일 정보가 아닌 경우 회원 이메일 추가
                                 Sign_up(User_Email);
+                                DB_Controller.User_Check(User_Email);
                             }
                         } else {
-                            Log.d("DB_Check 에러", "읽어오기 실패");
+                            Log.d("DB_Check", "읽어오기 실패");
                         }
                     }
                 });
@@ -42,6 +47,6 @@ public class DB_Controller {
         Map<String, Object> data = new HashMap<>();
         data.put("Device_Number", null);
         db.collection("User_info").document(User_Email).set(data);
-        Log.d("DB_Check.Sign_up", "회원추가");
+        Log.d("DB_Check", "User_info 추가");
     }
 }
