@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    app:cardBackgroundColor="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:id="@+id/recycler_item"
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/item_image"
+            android:background="@color/black"
+            android:padding="1dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/test_item"/>
+        <RelativeLayout
+            android:id="@+id/item_text"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/item_name"
+                android:text="이름 :"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/item_option1"
+                android:layout_below="@id/item_name"
+                android:text="humi :"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/item_option2"
+                android:layout_below="@id/item_option1"
+                android:text="lumi :"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/item_option3"
+                android:layout_below="@id/item_option2"
+                android:text="soil :"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/item_option4"
+                android:layout_below="@id/item_option3"
+                android:text="temp :"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
