@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from datetime import datetime
 
 cred = credentials.Certificate("spam-85498-firebase-adminsdk-wsavj-a18faa0fe2.json")
 # 파이어베이스 연결용 비공개 키
@@ -28,7 +29,25 @@ doc_ref.set({
     # TODO: 센서 측정값, 제어시 사용할 변수값 JSON 형태로 DB 스키마 참고해서 추가할 것
 })
 
-# TODO: 접속 형태만 만들었으니 알아서 자동갱신 할 수 있게 모듈화 해서 쓸 것
+#시간별 데이터 누적용, 누적 데이터는 Device_id 하위 컬렉션 Data_log에 현재 시간 기준으로 기록
+time = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+doc2_ref = db.collection('Device_data').document(Device_id).collection("Data_log").document(time)
+doc2_ref.set({
+    'cell' : {
+        'cell_1' : {
+            'Soil' : 4,
+            'Lumi' : 4,
+            'Temp' : 4,
+            'Humi' : 4
+        },
+        'cell_2' : {
+            'Soil' : 4,
+            'Lumi' : 3,
+            'Temp' : 2,
+            'Humi' : 1
+        }
+    }})
+
 try:
     doc = doc_ref.get()
     print("Document data :".format(doc.to_dict()))
