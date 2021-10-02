@@ -1,6 +1,5 @@
 package com.example.spam_project;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +7,12 @@ import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder> {
+public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.CustomViewHolder> {
 
     private List<Cell_Data> cell;
 
@@ -33,10 +31,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.lumi = (TextView) view.findViewById(R.id.item_option2);
             this.soil = (TextView) view.findViewById(R.id.item_option3);
             this.temp = (TextView) view.findViewById(R.id.item_option4);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position == RecyclerView.NO_POSITION){
+                        //클릭이 감지된 item이 포지션 번호가 없는 경우
+                    }
+                    else {
+
+                    }
+                }
+            });
         }
     }
 
-    public RecyclerViewAdapter(List<Cell_Data> list) {
+    public CellViewAdapter(List<Cell_Data> list) {
         this.cell = list;
     }
 
@@ -45,7 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cellview_item, parent, false);
 
         CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;

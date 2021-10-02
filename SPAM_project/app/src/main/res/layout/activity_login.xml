@@ -7,13 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
     <ImageView
         android:id="@+id/logo"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,13 +21,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <Button
+            <ImageView
                 android:id="@+id/lgn_button"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="login"/>
+                android:src="@drawable/btn_login"/>
         </RelativeLayout>
     </LinearLayout>
 

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/bottom_home"
-        android:icon="@drawable/ic_home"
+        android:id="@+id/bottom_deviceview"
+        android:icon="@drawable/ic_device"
         android:enabled="true"
-        android:title="home"/>
+        android:title="Device"/>
     <item
         android:id="@+id/bottom_reload"
         android:icon="@drawable/ic_reload"
         android:enabled="true"
         android:title="reload"/>
     <item
-        android:id="@+id/bottom_add_device"
-        android:icon="@drawable/ic_device"
+        android:id="@+id/bottom_cellview"
+        android:icon="@drawable/ic_cell"
         android:enabled="true"
-        android:title="add_divice"/>
+        android:title="Cell"/>
 </menu>
