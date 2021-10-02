@@ -13,7 +13,7 @@ public class SplashActivity extends AppCompatActivity {
         setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
 
-        SystemClock.sleep(500);
+        SystemClock.sleep(700);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

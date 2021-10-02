@@ -44,12 +44,17 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
         mAuth = FirebaseAuth.getInstance();
         lg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                if (mAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    signIn();
+                }
             }
         });
     }
@@ -97,9 +102,6 @@ public class LoginActivity extends AppCompatActivity {
             DB_Controller.User_Check(user.getEmail());
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-        }
-        else {
-            Log.d("로그인", "실패");
         }
     }
 
