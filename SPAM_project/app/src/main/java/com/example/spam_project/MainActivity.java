@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.spam_project.navigation.AddDevice_fragment;
 import com.example.spam_project.navigation.CellView_fragment;
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().add(R.id.main_content, new DeviceView_fragment()).commit();
 
-        //TODO: 바텀 네비게이션 버튼 이미지 수정하기 장치뷰, 셀뷰
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 
 }

@@ -6,14 +6,18 @@ public class Cell_Data {
     private String lumi;
     private String soil;
     private String temp;
+    private int viewtype;
 
-    public Cell_Data(String name, String humi, String lumi, String soil, String temp) {
+    public Cell_Data(String name, String humi, String lumi, String soil, String temp, int viewtype) {
         this.name = name;
         this.lumi = lumi;
         this.humi = humi;
         this.soil = soil;
         this.temp = temp;
-
+        this.viewtype = viewtype;
+    }
+    public Cell_Data(int viewtype) {
+        this.viewtype = viewtype;
     }
 
     //Getter
@@ -32,6 +36,7 @@ public class Cell_Data {
     public String getTemp(){
         return temp;
     }
+    public int getViewtype() { return viewtype; }
 
     //Setter
     public void setName(String name) {

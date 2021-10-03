@@ -34,11 +34,12 @@ public class CellView_fragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         List<Cell_Data> cell = new ArrayList<>();
-        cell.add(new Cell_Data("이름1", "4", "4", "4", "4"));
-        cell.add(new Cell_Data("이름2", "4", "4", "4", "4"));
-        cell.add(new Cell_Data("이름3", "4", "4", "4", "4"));
-        cell.add(new Cell_Data("이름4", "4", "4", "4", "4"));
-        cell.add(new Cell_Data("이름5", "4", "4", "4", "4"));
+        cell.add(new Cell_Data(0));
+        cell.add(new Cell_Data("이름1", "4", "4", "4", "4", 1));
+        cell.add(new Cell_Data("이름2", "4", "4", "4", "4", 1));
+        cell.add(new Cell_Data("이름3", "4", "4", "4", "4", 1));
+        cell.add(new Cell_Data("이름4", "4", "4", "4", "4", 1));
+        cell.add(new Cell_Data("이름5", "4", "4", "4", "4", 1));
 
         cellViewAdapter = new CellViewAdapter(cell);
         recyclerView.setAdapter(cellViewAdapter);

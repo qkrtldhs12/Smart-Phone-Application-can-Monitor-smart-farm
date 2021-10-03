@@ -1,14 +1,18 @@
 package com.example.spam_project.navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.spam_project.CellViewAdapter;
 import com.example.spam_project.Cell_Data;
 import com.example.spam_project.DeviceViewAdapter;
 import com.example.spam_project.Device_Data;
+import com.example.spam_project.MainActivity;
 import com.example.spam_project.R;
 
 import java.util.ArrayList;
@@ -36,10 +40,20 @@ public class DeviceView_fragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         List<Device_Data> device = new ArrayList<>();
-        device.add(new Device_Data("Device_Number : 1", "2"));
-        device.add(new Device_Data("Device_Number : 2", "2"));
+        device.add(new Device_Data(0));
+        device.add(new Device_Data("Device_Number : 1", "2", 1));
+        device.add(new Device_Data("Device_Number : 2", "2", 1));
+        device.add(new Device_Data(2));
 
         deviceViewAdapter = new DeviceViewAdapter(device);
+        deviceViewAdapter.setOnItemClickListener(new DeviceViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //Intent intent = new Intent(getActivity(), TestActivity.class);
+                // 프래그먼트상에선 context가 존재하지 않기 때문에 getActivty()를 통해 실행시킴
+                //startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(deviceViewAdapter);
         return rootView;
     }

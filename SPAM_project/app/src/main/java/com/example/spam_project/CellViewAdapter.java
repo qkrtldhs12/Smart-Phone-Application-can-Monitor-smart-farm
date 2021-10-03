@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.CustomViewHolder> {
 
@@ -32,18 +34,11 @@ public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.Custom
             this.soil = (TextView) view.findViewById(R.id.item_option3);
             this.temp = (TextView) view.findViewById(R.id.item_option4);
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(position == RecyclerView.NO_POSITION){
-                        //클릭이 감지된 item이 포지션 번호가 없는 경우
-                    }
-                    else {
-
-                    }
-                }
-            });
+        }
+    }
+    public class  CustomViewHolder_Head extends RecyclerView.ViewHolder{
+        public CustomViewHolder_Head(View view) {
+            super(view);
         }
     }
 
@@ -55,28 +50,37 @@ public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.Custom
     @NotNull
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cellview_item, parent, false);
-
-        CustomViewHolder viewHolder = new CustomViewHolder(view);
-        return viewHolder;
+        if(viewType == 0) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cellview_item_head, parent, false);
+            CustomViewHolder viewHolder = new CustomViewHolder(view);
+            return viewHolder;
+        }
+        else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cellview_item, parent, false);
+            CustomViewHolder viewHolder = new CustomViewHolder(view);
+            return viewHolder;
+        }
     }
 
     @Override
     public void onBindViewHolder(@NotNull CustomViewHolder holder, int position) {
         Cell_Data data = cell.get(position);
-
-        holder.name.setText(data.getName());
-        holder.humi.setText(data.getHumi());
-        holder.lumi.setText(data.getLumi());
-        holder.soil.setText(data.getSoil());
-        holder.temp.setText(data.getTemp());
+        if(data.getViewtype() != 0) {
+            holder.name.setText(data.getName());
+            holder.humi.setText(data.getHumi());
+            holder.lumi.setText(data.getLumi());
+            holder.soil.setText(data.getSoil());
+            holder.temp.setText(data.getTemp());
+        }
     }
 
     @Override
     public int getItemCount() {
         return (null != cell ? cell.size() : 0);
     }
+
+    @Override
+    public int getItemViewType(int position) { return cell.get(position).getViewtype(); }
 
 
 }
