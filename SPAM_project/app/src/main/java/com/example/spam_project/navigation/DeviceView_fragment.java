@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.spam_project.CellViewAdapter;
 import com.example.spam_project.Cell_Data;
+import com.example.spam_project.DB_Controller;
 import com.example.spam_project.DeviceViewAdapter;
 import com.example.spam_project.Device_Data;
 import com.example.spam_project.MainActivity;
@@ -39,11 +40,14 @@ public class DeviceView_fragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        List<Device_Data> device = new ArrayList<>();
-        device.add(new Device_Data(0));
-        device.add(new Device_Data("Device_Number : 1", "2", 1));
-        device.add(new Device_Data("Device_Number : 2", "2", 1));
-        device.add(new Device_Data(2));
+        Bundle bundle = getArguments();
+        String User_Email = bundle.getString("User_Email");
+
+        //List<Device_Data> device = new ArrayList<>();
+        //device.add(new Device_Data(0));
+        // 파이어베이스 환경 데이터 읽어오기
+        List<Device_Data> device =  DB_Controller.Call_Device(User_Email);
+        //device.add(new Device_Data(2));
 
         deviceViewAdapter = new DeviceViewAdapter(device);
         deviceViewAdapter.setOnItemClickListener(new DeviceViewAdapter.OnItemClickListener() {

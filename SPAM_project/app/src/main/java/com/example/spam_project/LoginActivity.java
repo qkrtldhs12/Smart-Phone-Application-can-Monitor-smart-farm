@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (mAuth.getCurrentUser() != null) {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("User_Email", mAuth.getCurrentUser().getEmail());
                     startActivity(intent);
                     overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 } else {
@@ -102,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         if(user != null) {
             DB_Controller.User_Check(user.getEmail());
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("User_Email", user.getEmail());
             startActivity(intent);
             overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         }

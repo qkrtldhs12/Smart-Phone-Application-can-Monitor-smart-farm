@@ -10,9 +10,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,30 @@ public class DB_Controller {
                         }
                     }
                 });
+    }
+
+    public static List<Device_Data> Call_Device(String User_Email) {
+        List<Device_Data> device = new ArrayList<>();
+        device.add(new Device_Data(0));
+
+        db.collection("User_info").document(User_Email).collection("User_Device")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("DATA_Call", document.getId() + " -> " + document.getData());
+                            }
+                        }
+                        else {
+                            Log.d("DATA_Call", "Error");
+                        }
+                    }
+                });
+        // TODO : 읽어온 데이터 커스텀 객체 Device_Data에 매칭시키기
+        device.add(new Device_Data(2));
+        return device;
     }
 
     private static void Sign_up(String User_Email) {

@@ -28,12 +28,26 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class  CustomViewHolder extends RecyclerView.ViewHolder{
         protected TextView name;
         protected TextView connected;
+        protected TextView model_id;
+        protected TextView door;
+        protected TextView heat;
+        protected TextView humidifier;
+        protected TextView light;
+        protected TextView vent;
 
 
         public CustomViewHolder(View view) {
             super(view);
             this.name = (TextView) view.findViewById(R.id.item2_name);
-            this.connected = (TextView) view.findViewById(R.id.item2_option1);
+            this.connected = (TextView) view.findViewById(R.id.item2_connected);
+            this.model_id = (TextView) view.findViewById(R.id.item2_model_id);
+            this.door = (TextView) view.findViewById(R.id.item2_door);
+            this.heat = (TextView) view.findViewById(R.id.item2_heat);
+            this.humidifier = (TextView) view.findViewById(R.id.item2_humidifier);
+            this.light = (TextView) view.findViewById(R.id.item2_light);
+            this.vent = (TextView) view.findViewById(R.id.item2_vent);
+
+
         }
     }
     public class  CustomViewHolder_Head extends RecyclerView.ViewHolder{
@@ -91,6 +105,12 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if(data.getViewtype() == 1) {
             ((CustomViewHolder)holder).name.setText(data.getName());
             ((CustomViewHolder)holder).connected.setText(data.getConnected());
+            ((CustomViewHolder)holder).model_id.setText(data.getModel_id());
+            ((CustomViewHolder)holder).door.setText(data.getDoor());
+            ((CustomViewHolder)holder).heat.setText(data.getHeat());
+            ((CustomViewHolder)holder).humidifier.setText(data.getHumidifier());
+            ((CustomViewHolder)holder).light.setText(data.getLight());
+            ((CustomViewHolder)holder).vent.setText(data.getVent());
         }
     }
 

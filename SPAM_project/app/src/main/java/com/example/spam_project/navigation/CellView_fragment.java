@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.spam_project.Cell_Data;
+import com.example.spam_project.DB_Controller;
 import com.example.spam_project.R;
 import com.example.spam_project.CellViewAdapter;
 
@@ -33,15 +34,24 @@ public class CellView_fragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        Bundle bundle = getArguments();
+        String User_Email = bundle.getString("User_Email");
+
         List<Cell_Data> cell = new ArrayList<>();
         cell.add(new Cell_Data(0));
-        cell.add(new Cell_Data("이름1", "4", "4", "4", "4", 1));
-        cell.add(new Cell_Data("이름2", "4", "4", "4", "4", 1));
-        cell.add(new Cell_Data("이름3", "4", "4", "4", "4", 1));
-        cell.add(new Cell_Data("이름4", "4", "4", "4", "4", 1));
-        cell.add(new Cell_Data("이름5", "4", "4", "4", "4", 1));
+        //파이어베이스 셀 데이터 읽어오기
+        DB_Controller.Call_Device(User_Email);
+        cell.add(new Cell_Data(2));
 
         cellViewAdapter = new CellViewAdapter(cell);
+        cellViewAdapter.setOnItemClickListener(new CellViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //Intent intent = new Intent(getActivity(), TestActivity.class);
+                // 프래그먼트상에선 context가 존재하지 않기 때문에 getActivty()를 통해 실행시킴
+                //startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(cellViewAdapter);
         return rootView;
     }

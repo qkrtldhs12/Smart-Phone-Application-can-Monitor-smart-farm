@@ -14,14 +14,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.CustomViewHolder> {
+public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
     private List<Cell_Data> cell;
+    private CellViewAdapter.OnItemClickListener mListener = null;
+    public void setOnItemClickListener(CellViewAdapter.OnItemClickListener listener) {
+        this.mListener = listener;
+    }
 
     public class  CustomViewHolder extends RecyclerView.ViewHolder{
         protected TextView name;
         protected TextView humi;
-        protected TextView lumi;
         protected TextView soil;
         protected TextView temp;
 
@@ -30,9 +37,8 @@ public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.Custom
             super(view);
             this.name = (TextView) view.findViewById(R.id.item_name);
             this.humi = (TextView) view.findViewById(R.id.item_option1);
-            this.lumi = (TextView) view.findViewById(R.id.item_option2);
-            this.soil = (TextView) view.findViewById(R.id.item_option3);
-            this.temp = (TextView) view.findViewById(R.id.item_option4);
+            this.soil = (TextView) view.findViewById(R.id.item_option2);
+            this.temp = (TextView) view.findViewById(R.id.item_option3);
 
         }
     }
@@ -41,6 +47,23 @@ public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.Custom
             super(view);
         }
     }
+    public class  CustomViewHolder_Tail extends RecyclerView.ViewHolder{
+        public CustomViewHolder_Tail(View view) {
+            super(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener != null) {
+                            mListener.onItemClick(view, position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
 
     public CellViewAdapter(List<Cell_Data> list) {
         this.cell = list;
@@ -49,28 +72,30 @@ public class CellViewAdapter extends RecyclerView.Adapter<CellViewAdapter.Custom
     @NonNull
     @NotNull
     @Override
-    public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == 0) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cellview_item_head, parent, false);
-            CustomViewHolder viewHolder = new CustomViewHolder(view);
-            return viewHolder;
+            return new CellViewAdapter.CustomViewHolder_Head(view);
+        }
+        else if(viewType == 2) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.deviceview_item_tail, parent, false);
+            return new CellViewAdapter.CustomViewHolder_Tail(view);
         }
         else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cellview_item, parent, false);
-            CustomViewHolder viewHolder = new CustomViewHolder(view);
+            RecyclerView.ViewHolder viewHolder = new CustomViewHolder(view);
             return viewHolder;
         }
     }
 
     @Override
-    public void onBindViewHolder(@NotNull CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull RecyclerView.ViewHolder  holder, int position) {
         Cell_Data data = cell.get(position);
-        if(data.getViewtype() != 0) {
-            holder.name.setText(data.getName());
-            holder.humi.setText(data.getHumi());
-            holder.lumi.setText(data.getLumi());
-            holder.soil.setText(data.getSoil());
-            holder.temp.setText(data.getTemp());
+        if(data.getViewtype() == 1) {
+            ((CellViewAdapter.CustomViewHolder)holder).name.setText(data.getName());
+            ((CellViewAdapter.CustomViewHolder)holder).humi.setText(data.getHumi());
+            ((CellViewAdapter.CustomViewHolder)holder).soil.setText(data.getSoil());
+            ((CellViewAdapter.CustomViewHolder)holder).temp.setText(data.getTemp());
         }
     }
 

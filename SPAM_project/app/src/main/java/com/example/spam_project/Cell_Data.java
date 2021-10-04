@@ -3,14 +3,12 @@ package com.example.spam_project;
 public class Cell_Data {
     private String name;
     private String humi;
-    private String lumi;
     private String soil;
     private String temp;
     private int viewtype;
 
-    public Cell_Data(String name, String humi, String lumi, String soil, String temp, int viewtype) {
+    public Cell_Data(String name, String humi, String soil, String temp, int viewtype) {
         this.name = name;
-        this.lumi = lumi;
         this.humi = humi;
         this.soil = soil;
         this.temp = temp;
@@ -27,9 +25,6 @@ public class Cell_Data {
     public String getHumi(){
         return humi;
     }
-    public String getLumi(){
-        return lumi;
-    }
     public String getSoil(){
         return soil;
     }
@@ -44,9 +39,6 @@ public class Cell_Data {
     }
     public void setHumi(String humi) {
         this.humi = humi;
-    }
-    public void setLumi(String lumi) {
-        this.lumi = lumi;
     }
     public void setSoil(String soil) {
         this.soil = soil;
