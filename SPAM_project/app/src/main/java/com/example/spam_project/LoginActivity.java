@@ -1,13 +1,11 @@
 package com.example.spam_project;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,8 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.example.spam_project.DB_Controller;
+
 import org.jetbrains.annotations.NotNull;
 
 public class LoginActivity extends AppCompatActivity {
@@ -101,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if(user != null) {
-            DB_Controller.User_Check(user.getEmail());
+            Login_Controller.User_Check(user.getEmail());
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("User_Email", user.getEmail());
             startActivity(intent);

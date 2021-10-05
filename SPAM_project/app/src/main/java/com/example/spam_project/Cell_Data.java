@@ -7,6 +7,8 @@ public class Cell_Data {
     private String temp;
     private int viewtype;
 
+    public Cell_Data() {this.viewtype = 1;}
+
     public Cell_Data(String name, String humi, String soil, String temp, int viewtype) {
         this.name = name;
         this.humi = humi;

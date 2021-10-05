@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.spam_project.Cell_Data;
-import com.example.spam_project.DB_Controller;
+import com.example.spam_project.Device_Data;
 import com.example.spam_project.R;
 import com.example.spam_project.CellViewAdapter;
 
@@ -24,6 +24,7 @@ public class CellView_fragment extends Fragment {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     CellViewAdapter cellViewAdapter;
+    public static List<Cell_Data> cell;
 
     public View onCreateView(@Nonnull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -33,15 +34,6 @@ public class CellView_fragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        Bundle bundle = getArguments();
-        String User_Email = bundle.getString("User_Email");
-
-        List<Cell_Data> cell = new ArrayList<>();
-        cell.add(new Cell_Data(0));
-        //파이어베이스 셀 데이터 읽어오기
-        DB_Controller.Call_Device(User_Email);
-        cell.add(new Cell_Data(2));
 
         cellViewAdapter = new CellViewAdapter(cell);
         cellViewAdapter.setOnItemClickListener(new CellViewAdapter.OnItemClickListener() {

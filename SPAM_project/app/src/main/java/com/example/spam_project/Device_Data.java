@@ -1,5 +1,7 @@
 package com.example.spam_project;
 
+import android.bluetooth.BluetoothClass;
+
 public class Device_Data {
     private String name;
     private String connected;
@@ -26,6 +28,8 @@ public class Device_Data {
     public Device_Data(int viewtype) {
         this.viewtype = viewtype;
     }
+
+    public Device_Data() { this.viewtype = 1; }
 
     //Getter
     public String getName(){
