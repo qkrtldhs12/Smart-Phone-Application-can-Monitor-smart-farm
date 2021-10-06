@@ -19,11 +19,18 @@ public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
+    public interface OnItemLongClickListener {
+        void OnItemLongClick(View view, int position);
+    }
 
     private List<Cell_Data> cell;
     private CellViewAdapter.OnItemClickListener mListener = null;
+    private OnItemLongClickListener mLongListener = null;
     public void setOnItemClickListener(CellViewAdapter.OnItemClickListener listener) {
         this.mListener = listener;
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.mLongListener = listener;
     }
 
     public class  CustomViewHolder extends RecyclerView.ViewHolder{
@@ -40,6 +47,18 @@ public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.soil = (TextView) view.findViewById(R.id.item_option2);
             this.temp = (TextView) view.findViewById(R.id.item_option3);
 
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mLongListener != null) {
+                            mLongListener.OnItemLongClick(view, position);
+                        }
+                    }
+                    return true;
+                }
+            });
         }
     }
     public class  CustomViewHolder_Head extends RecyclerView.ViewHolder{

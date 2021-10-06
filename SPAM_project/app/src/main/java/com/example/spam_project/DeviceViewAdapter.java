@@ -3,6 +3,7 @@ package com.example.spam_project;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
@@ -17,11 +18,18 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
+    public interface OnItemLongClickListener {
+        void onItemLongClick(View view, int position);
+    }
 
     private List<Device_Data> device;
     private OnItemClickListener mListener = null;
-    public void setOnItemClickListener(DeviceViewAdapter.OnItemClickListener listener) {
+    private OnItemLongClickListener mLongListener = null;
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.mLongListener = listener;
     }
 
 
@@ -46,8 +54,18 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             this.humidifier = (TextView) view.findViewById(R.id.item2_humidifier);
             this.light = (TextView) view.findViewById(R.id.item2_light);
             this.vent = (TextView) view.findViewById(R.id.item2_vent);
-
-
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mLongListener != null) {
+                            mLongListener.onItemLongClick(view, position);
+                        }
+                    }
+                    return true;
+                }
+            });
         }
     }
     public class  CustomViewHolder_Head extends RecyclerView.ViewHolder{
@@ -122,6 +140,10 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemViewType(int position) {
        return device.get(position).getViewtype();
+    }
+
+    public Device_Data getItem(int position) {
+        return device.get(position);
     }
 
 
