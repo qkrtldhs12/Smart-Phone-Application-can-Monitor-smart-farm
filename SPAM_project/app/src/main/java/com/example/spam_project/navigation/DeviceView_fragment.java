@@ -2,12 +2,15 @@ package com.example.spam_project.navigation;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.spam_project.Add_DeviceActivity;
+import com.example.spam_project.DeviceControlActivity;
 import com.example.spam_project.DeviceViewAdapter;
 import com.example.spam_project.Device_Data;
 import com.example.spam_project.MainActivity;
@@ -51,7 +54,6 @@ public class DeviceView_fragment extends Fragment {
         deviceViewAdapter.setOnItemLongClickListener(new DeviceViewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View view, int position) {
-                System.out.println("기이이이이이인 클릭");
                 new AlertDialog.Builder(getActivity())
                         .setTitle("연결된 환경 제거")
                         .setMessage("삭제하시겠습니까?")
@@ -78,7 +80,6 @@ public class DeviceView_fragment extends Fragment {
                         .setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                System.out.println("확인창 테스트 : YES");
                                 //삭제 취소
                             }
                         })
@@ -90,8 +91,23 @@ public class DeviceView_fragment extends Fragment {
         deviceViewAdapter.setOnItemClickListener(new DeviceViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                System.out.println("짧은 클릭");
-                //데이터 추가
+                if(device.size()-1 == position) {
+                    Intent intent = new Intent(getActivity(), Add_DeviceActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    // 제어 페이지
+                    Intent intent = new Intent(getActivity(), DeviceControlActivity.class);
+                    intent.putExtra("model_id", deviceViewAdapter.getItem(position).getModel_id());
+                    intent.putExtra("name", deviceViewAdapter.getItem(position).getName());
+                    intent.putExtra("connected", deviceViewAdapter.getItem(position).getConnected());
+                    intent.putExtra("door", deviceViewAdapter.getItem(position).getDoor());
+                    intent.putExtra("heat", deviceViewAdapter.getItem(position).getHeat());
+                    intent.putExtra("humidifier", deviceViewAdapter.getItem(position).getHumidifier());
+                    intent.putExtra("light", deviceViewAdapter.getItem(position).getLight());
+                    intent.putExtra("vent", deviceViewAdapter.getItem(position).getVent());
+                    startActivity(intent);
+                }
             }
         });
         recyclerView.setAdapter(deviceViewAdapter);

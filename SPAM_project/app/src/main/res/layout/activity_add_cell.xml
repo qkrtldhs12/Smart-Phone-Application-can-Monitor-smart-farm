@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Add_DeviceActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_toolbar_logo"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="right"
+
+                android:src="@drawable/ic_alarm_image"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/toolbar_division"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:background="@color/division"
+        android:layout_height="1dp"
+        android:orientation="horizontal" />
+    <EditText
+        android:id="@+id/edit_device_model_id"
+        android:layout_margin="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/toolbar_division"
+        android:hint="  연결된 모델명 :"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/division"
+        android:backgroundTint="@color/division"/>
+    <EditText
+        android:id="@+id/edit_cell_name"
+        android:layout_margin="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/edit_device_model_id"
+        android:hint="  셀 이름 :"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/division"
+        android:backgroundTint="@color/division"/>
+
+    <Button
+        android:id="@+id/edit_cell_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="40dp"
+        android:layout_below="@id/edit_cell_name"
+        android:text="등록하기"
+        android:textSize="25dp"/>
+
+
+</RelativeLayout>

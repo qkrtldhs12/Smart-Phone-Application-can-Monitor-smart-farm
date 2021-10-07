@@ -23,8 +23,9 @@ public class Device_Data {
         this.light = light;
         this.vent = vent;
         this.viewtype = viewtype;
-
     }
+
+
     public Device_Data(int viewtype) {
         this.viewtype = viewtype;
     }
@@ -80,7 +81,7 @@ public class Device_Data {
     public void setLight(String light) {
         this.light = light;
     }
-    public void setVent(String name) {
+    public void setVent(String vent) {
         this.vent = vent;
     }
 

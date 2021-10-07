@@ -59,6 +59,17 @@ public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     return true;
                 }
             });
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener != null) {
+                            mListener.onItemClick(view, position);
+                        }
+                    }
+                }
+            });
         }
     }
     public class  CustomViewHolder_Head extends RecyclerView.ViewHolder{
@@ -125,6 +136,10 @@ public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) { return cell.get(position).getViewtype(); }
+
+    public Cell_Data getItem(int position) {
+        return cell.get(position);
+    }
 
 
 }

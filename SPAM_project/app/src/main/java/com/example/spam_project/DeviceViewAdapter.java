@@ -66,6 +66,17 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     return true;
                 }
             });
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener != null) {
+                            mListener.onItemClick(view, position);
+                        }
+                    }
+                }
+            });
         }
     }
     public class  CustomViewHolder_Head extends RecyclerView.ViewHolder{

@@ -2,11 +2,15 @@ package com.example.spam_project.navigation;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.spam_project.Add_CellActivity;
+import com.example.spam_project.Add_DeviceActivity;
+import com.example.spam_project.CellControlActivity;
 import com.example.spam_project.Cell_Data;
 import com.example.spam_project.Device_Data;
 import com.example.spam_project.MainActivity;
@@ -47,7 +51,6 @@ public class CellView_fragment extends Fragment {
         cellViewAdapter.setOnItemLongClickListener(new CellViewAdapter.OnItemLongClickListener() {
             @Override
             public void OnItemLongClick(View view, int position) {
-                System.out.println("기이이이이이이이이이이인 클릭 2");
                 new AlertDialog.Builder(getActivity())
                         .setTitle("연결된 환경 제거")
                         .setMessage("삭제하시겠습니까?")
@@ -67,7 +70,6 @@ public class CellView_fragment extends Fragment {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     //DB 삭제 성공
-                                                    System.out.println("셀 삭제 성공");
                                                 }
                                             });
                                 }
@@ -77,7 +79,6 @@ public class CellView_fragment extends Fragment {
                         .setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                System.out.println("확인창 테스트 : YES");
                                 //삭제 취소
                             }
                         })
@@ -89,10 +90,25 @@ public class CellView_fragment extends Fragment {
         cellViewAdapter.setOnItemClickListener(new CellViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                //Intent intent = new Intent(getActivity(), TestActivity.class);
-                // 프래그먼트상에선 context가 존재하지 않기 때문에 getActivty()를 통해 실행시킴
-                //startActivity(intent);
-                System.out.println("짧은 클릭 2");
+                if(cell.size()-1 == position) {
+                    Intent intent = new Intent(getActivity(), Add_CellActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    // 제어 페이지
+                    ArrayList<String> My_Cell = new ArrayList<>();
+                    for(Cell_Data data : cell){
+                        My_Cell.add(data.getName());
+                    }
+                    Intent intent = new Intent(getActivity(), CellControlActivity.class);
+                    intent.putStringArrayListExtra("name_list", My_Cell);
+                    intent.putExtra("name", cellViewAdapter.getItem(position).getName());
+                    intent.putExtra("model_id", cellViewAdapter.getItem(position).getModel_id());
+                    intent.putExtra("humi", cellViewAdapter.getItem(position).getHumi());
+                    intent.putExtra("soil", cellViewAdapter.getItem(position).getSoil());
+                    intent.putExtra("temp", cellViewAdapter.getItem(position).getTemp());
+                    startActivity(intent);
+                }
             }
         });
         recyclerView.setAdapter(cellViewAdapter);
