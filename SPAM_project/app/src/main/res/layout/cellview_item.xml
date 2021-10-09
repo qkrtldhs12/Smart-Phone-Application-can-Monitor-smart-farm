@@ -22,7 +22,7 @@
             android:layout_height="150dp"
             android:layout_margin="10dp"
             android:scaleType="fitXY"
-            android:src="@drawable/test_item"/>
+            android:src="@drawable/ic_launcher_foreground"/>
         <RelativeLayout
             android:id="@+id/item_text"
             android:layout_toRightOf="@id/item_image"

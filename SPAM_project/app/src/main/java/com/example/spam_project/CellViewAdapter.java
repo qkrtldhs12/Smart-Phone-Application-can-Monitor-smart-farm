@@ -1,5 +1,6 @@
 package com.example.spam_project;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,28 +24,38 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
     public interface OnItemLongClickListener {
         void OnItemLongClick(View view, int position);
     }
+    public interface OnImageClickListener {
+        void onImageClick(View view, int position);
+        void onBtnClick(View view, int position);
+    }
 
     private List<Cell_Data> cell;
-    private CellViewAdapter.OnItemClickListener mListener = null;
+    private OnItemClickListener mListener = null;
     private OnItemLongClickListener mLongListener = null;
-    public void setOnItemClickListener(CellViewAdapter.OnItemClickListener listener) {
+    private OnImageClickListener mImageListener = null;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
     public void setOnItemLongClickListener(OnItemLongClickListener listener) {
         this.mLongListener = listener;
     }
+    public void setOnImageClickListener(OnImageClickListener listener) {this.mImageListener = listener;}
 
     public class  CustomViewHolder extends RecyclerView.ViewHolder{
         protected TextView name;
         protected TextView humi;
         protected TextView soil;
         protected TextView temp;
+        protected ImageView image;
+        protected ImageView req_water;
 
 
         public CustomViewHolder(View view) {
@@ -48,7 +64,27 @@ public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.humi = (TextView) view.findViewById(R.id.item_option1);
             this.soil = (TextView) view.findViewById(R.id.item_option2);
             this.temp = (TextView) view.findViewById(R.id.item_option3);
+            this.image = (ImageView) view.findViewById(R.id.item_image);
+            this.req_water = (ImageView) view.findViewById(R.id.control_water);
 
+            req_water.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION) {
+                        mImageListener.onBtnClick(view, position);
+                    }
+                }
+            });
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION) {
+                        mImageListener.onImageClick(view, position);
+                    }
+                }
+            });
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -128,6 +164,15 @@ public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((CellViewAdapter.CustomViewHolder)holder).humi.setText(data.getHumi());
             ((CellViewAdapter.CustomViewHolder)holder).soil.setText(data.getSoil());
             ((CellViewAdapter.CustomViewHolder)holder).temp.setText(data.getTemp());
+            String path = "image/" + data.getModel_id() + "/" + data.getName() +".png";
+            StorageReference pathRef = storage.getReference().child(path);
+
+            pathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(holder.itemView.getContext()).load(uri).into(((CellViewAdapter.CustomViewHolder) holder).image);
+                }
+            });
         }
     }
 

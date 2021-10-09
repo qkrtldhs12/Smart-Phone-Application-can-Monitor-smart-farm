@@ -3,12 +3,14 @@ package com.example.spam_project.navigation;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.spam_project.Add_DeviceActivity;
 import com.example.spam_project.DeviceControlActivity;
 import com.example.spam_project.DeviceViewAdapter;
@@ -17,6 +19,9 @@ import com.example.spam_project.MainActivity;
 import com.example.spam_project.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.List;
 
@@ -27,11 +32,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
 public class DeviceView_fragment extends Fragment {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     DeviceViewAdapter deviceViewAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    ImageView current_image;
+    String model_id;
 
 
 
@@ -48,7 +60,6 @@ public class DeviceView_fragment extends Fragment {
 
 
         deviceViewAdapter = new DeviceViewAdapter(device);
-        // deviceViewAdepter가 Call 이후에 생성되어야 함
 
         //롱클릭
         deviceViewAdapter.setOnItemLongClickListener(new DeviceViewAdapter.OnItemLongClickListener() {
@@ -80,7 +91,7 @@ public class DeviceView_fragment extends Fragment {
                         .setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //삭제 취소
+                                // 삭제 취소
                             }
                         })
                         .show();
@@ -110,8 +121,43 @@ public class DeviceView_fragment extends Fragment {
                 }
             }
         });
+
+        // 사진 클릭
+        deviceViewAdapter.setOnImageClickListener(new DeviceViewAdapter.OnImageClickListener() {
+            @Override
+            public void onImageClick(View view, int position) {
+                current_image = (ImageView) view.findViewById(R.id.item2_image);
+                model_id = deviceViewAdapter.getItem(position).getModel_id();
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 0);
+            }
+        });
+
         recyclerView.setAdapter(deviceViewAdapter);
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == RESULT_OK) {
+                try{
+                    Uri uri = data.getData();
+                    Glide.with(getActivity()).load(uri).into(current_image);
+                    String path = "image/" + model_id + ".png";
+                    UploadTask uploadTask = storageRef.child(path).putFile(uri);
+                }
+                catch (Exception e) {
+
+                }
+            }
+            else if(resultCode == RESULT_CANCELED) {
+                //사진 선택 취소
+            }
+       }
     }
 
     public void onViewCreated(@Nonnull View view, @Nullable Bundle savedInstanceState) {

@@ -1,10 +1,23 @@
 package com.example.spam_project;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.example.spam_project.navigation.DeviceView_fragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
+import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,16 +34,21 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public interface OnItemLongClickListener {
         void onItemLongClick(View view, int position);
     }
+    public interface OnImageClickListener {
+        void onImageClick(View view, int position);
+    }
+
 
     private List<Device_Data> device;
     private OnItemClickListener mListener = null;
     private OnItemLongClickListener mLongListener = null;
+    private OnImageClickListener mImageListener = null;
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
-    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
-        this.mLongListener = listener;
-    }
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) { this.mLongListener = listener; }
+    public void setOnImageClickListener(OnImageClickListener listener) {this.mImageListener = listener;}
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
 
     public class  CustomViewHolder extends RecyclerView.ViewHolder{
@@ -42,6 +60,7 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         protected TextView humidifier;
         protected TextView light;
         protected TextView vent;
+        protected ImageView image;
 
 
         public CustomViewHolder(View view) {
@@ -54,6 +73,18 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             this.humidifier = (TextView) view.findViewById(R.id.item2_humidifier);
             this.light = (TextView) view.findViewById(R.id.item2_light);
             this.vent = (TextView) view.findViewById(R.id.item2_vent);
+            this.image = (ImageView) view.findViewById(R.id.item2_image);
+
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION) {
+                        mImageListener.onImageClick(view, position);
+                    }
+                }
+            });
+
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -140,8 +171,19 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((CustomViewHolder)holder).humidifier.setText(data.getHumidifier());
             ((CustomViewHolder)holder).light.setText(data.getLight());
             ((CustomViewHolder)holder).vent.setText(data.getVent());
+            String path = "image/" + data.getModel_id() + ".png";
+            StorageReference pathRef = storage.getReference().child(path);
+
+            pathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(holder.itemView.getContext()).load(uri).into(((CustomViewHolder) holder).image);
+                }
+            });
+
         }
     }
+
 
     @Override
     public int getItemCount() {
