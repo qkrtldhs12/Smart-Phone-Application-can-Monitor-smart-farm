@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.spam_project.Add_CellActivity;
-import com.example.spam_project.Add_DeviceActivity;
-import com.example.spam_project.CellControlActivity;
 import com.example.spam_project.Cell_Data;
-import com.example.spam_project.Device_Data;
 import com.example.spam_project.MainActivity;
 import com.example.spam_project.R;
 import com.example.spam_project.CellViewAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -95,19 +95,13 @@ public class CellView_fragment extends Fragment {
                     startActivity(intent);
                 }
                 else{
-                    // 제어 페이지
-                    ArrayList<String> My_Cell = new ArrayList<>();
-                    for(Cell_Data data : cell){
-                        My_Cell.add(data.getName());
-                    }
-                    Intent intent = new Intent(getActivity(), CellControlActivity.class);
-                    intent.putStringArrayListExtra("name_list", My_Cell);
-                    intent.putExtra("name", cellViewAdapter.getItem(position).getName());
-                    intent.putExtra("model_id", cellViewAdapter.getItem(position).getModel_id());
-                    intent.putExtra("humi", cellViewAdapter.getItem(position).getHumi());
-                    intent.putExtra("soil", cellViewAdapter.getItem(position).getSoil());
-                    intent.putExtra("temp", cellViewAdapter.getItem(position).getTemp());
-                    startActivity(intent);
+                    Map<String, Object> req_water = new HashMap<>();
+                    req_water.put("물줘", "물줘");
+                    db.collection("User_info").document(MainActivity.User_Email).collection("User_Device").document(cellViewAdapter.getItem(position).getModel_id())
+                            .collection("Cell_Data").document(cellViewAdapter.getItem(position).getName()).collection("Control")
+                            .document("Received").set(req_water);
+                    Toast.makeText(getActivity(), "알림 : "+cellViewAdapter.getItem(position).getName()+"에 물주기 요청이 정상적으로 전송되었습니다.", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

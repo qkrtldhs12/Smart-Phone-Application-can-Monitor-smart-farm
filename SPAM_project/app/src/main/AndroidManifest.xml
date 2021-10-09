@@ -9,21 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".CellControlActivity"></activity>
-        <activity android:name=".DeviceControlActivity" />
-        <activity android:name=".Add_CellActivity" />
-        <activity android:name=".Add_DeviceActivity" />
+        <activity android:name=".DeviceControlActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Add_CellActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Add_DeviceActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
