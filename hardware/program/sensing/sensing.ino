@@ -7,7 +7,7 @@
 
 DHT dht(DHTPIN, DHTTYPE);
 
-int moment = 3000;
+int moment = 1000;
 float humidity; // 습도변수
 float temperature;  // 온도변수
 
