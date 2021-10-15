@@ -82,7 +82,7 @@ class Cell(object):
         else:
             return True
 
-
+'''
 # 센싱아두이노 시리얼포트 연결-라즈베리파이
 sen1=Serial('/dev/ttyACM0',9600)    #센싱 아두이노1
 sen2=Serial('/dev/ttyACM1',9600)    #센싱 아두이노2
@@ -91,15 +91,15 @@ con=Serial('/dev/ttyACM2',9600)     #컨트롤 아두이노
 # 센싱아두이노 시리얼포트 연결-윈도우10
 sen1=Serial('COM6',9600)    #센싱 아두이노1
 sen2=Serial('COM7',9600)    #센싱 아두이노2
-con=Serial('COM10',9600)    #컨트롤 아두이노
-'''
+con=Serial('COM9',9600)    #컨트롤 아두이노
+
 cred = credentials.Certificate("./spam-85498-firebase-adminsdk-wsavj-7375d295d7.json")
 # 파이어베이스 연결용 비공개 키
 firebase_admin.initialize_app(cred)
 db = firestore.client() # Firestore 객체 생성
 
 user_email = "caesar2746@gmail.com"
-model_id = "x001" # 모델명(고유값)
+model_id = "x001"   # 모델명(고유값)
 
 # 해당하는 모델명을 등록한 유저의 이메일 조회
 doc_ref = db.collection("User_Email").document("default")
@@ -116,7 +116,7 @@ device = Device(doc_ref.get())
 
 # 디바이스에 연결된 모든 셀 정보 조회
 doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").stream()
-All_Cell = [] # 디바이스 내의 모든 Cell 정보를 저장하는 리스트
+All_Cell = []   # 디바이스 내의 모든 Cell 정보를 저장하는 리스트
 for doc in doc_ref:
     cell = Cell(doc)
     All_Cell.append(cell)
@@ -124,15 +124,57 @@ for doc in doc_ref:
 callback_done = threading.Event()
 
 def on_snapshot(doc_snapshot, changes, read_time):
+    '''
+    전송데이터 구성
+    케이스제어신호: 케이스뚜껑, 조명, 가습, 환기
+    셀단위제어신호: 수분, 열선
+    '''
+    senData=[]
     for doc in doc_snapshot:
         # User_info ~ Received 경로에서 Received에 변화가 있을 경우 아래 로직이 실행됨
         # 앱에서 제어신호를 Received로 보내면 이쪽에서 처리할 것
-        pass
+        senData
     callback_done.set()
 
 doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Control").document("Received")
-
 doc_watch = doc_ref.on_snapshot(on_snapshot)
+#con.writelines(str(conSign).encode('utf-8'))     # 제어아두이노로 문자열 전송
+
+
+conSign=['a','0','0','0','0','0','0']  # 자동제어를 위한 전송코드
+def makeSign(s1,t1,h1,s2,t2,h2):
+    # cell1의 토양수분공급코드
+    if s1<5:
+        conSign[1]='1'
+    else:
+        conSign[1]='0'
+    # cell2의 토양수분공급코드
+    if s2<20:
+        conSign[4]='1'
+    else:
+        conSign[4]='0'
+
+    # cell1의 온도제어코드
+    if t1<25:
+        conSign[2]='1'
+    else:
+        conSign[2]='0'
+    # cell2의 온도제어코드
+    if t1<30:
+        conSign[2]='1'
+    else:
+        conSign[2]='0'
+
+    # cell1의 습도제어코드
+    if h1<60:
+        conSign[3]='1'
+    else:
+        conSign[3]='0'
+    # cell2의 습도제어코드
+    if h2<40:
+        conSign[6]='1'
+    else:
+        conSign[6]='0'
 
 # DB에 접근하는 횟수 감소를 위해서 일정 주기가 아닌 센서값에 변화가 생길 때만 DB에 갱신
 while(1):
@@ -178,18 +220,19 @@ while(1):
     cell2_update.set(received_data2)
     # print(received_data2)
 
-    # TODO 서버에서 제어신호 가져와서 문자열-코드 형태로 아두이노로 전송
-    # control=db.collection
-    # con.writelines(received_data)
+    makeSign(int(ref1[1]),int(ref1[2]),int(ref1[3]),int(ref2[1]),int(ref2[2]),int(ref2[3]))
+    print(conSign)
+    con.writelines(str(conSign).encode('utf-8'))     # 제어아두이노로 문자열 전송
+
     time.sleep(5)
 
-'''
+    '''
     # 현재 가지고 있는 모든 셀 정보(All_Cell)와 수신한 셀 정보(received_data)를 비교
     for cell in All_Cell:
         # All_Cell에서 name을 기준으로 received_data와 일치하는 셀 검색
         if(received_data.get("name") == cell.to_dict().get("name")):
             # 기존의 셀 정보와 수신한 셀 정보가 동일한지 검사 -> False면 불일치, True면 일치
-            if(cell.diff_check(received_data,cell.getDatabase()) == False):
+            if(cell.diff_check(received_data) == False):
                 # 셀 정보 업데이트
                 cell_update = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(received_data.get("name"))
                 cell_update.set(received_data)
@@ -199,4 +242,4 @@ while(1):
             cell_update.set(received_data)  
     print('time')
     time.sleep(5)
-'''
+    '''
