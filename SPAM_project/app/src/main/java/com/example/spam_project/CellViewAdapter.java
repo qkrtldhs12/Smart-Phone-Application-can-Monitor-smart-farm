@@ -160,10 +160,10 @@ public class CellViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NotNull RecyclerView.ViewHolder  holder, int position) {
         Cell_Data data = cell.get(position);
         if(data.getViewtype() == 1) {
-            ((CellViewAdapter.CustomViewHolder)holder).name.setText(data.getName());
-            ((CellViewAdapter.CustomViewHolder)holder).humi.setText(data.getHumi());
-            ((CellViewAdapter.CustomViewHolder)holder).soil.setText(data.getSoil());
-            ((CellViewAdapter.CustomViewHolder)holder).temp.setText(data.getTemp());
+            ((CellViewAdapter.CustomViewHolder)holder).name.setText("이름: "+data.getName());
+            ((CellViewAdapter.CustomViewHolder)holder).humi.setText("습도: "+data.getHumi());
+            ((CellViewAdapter.CustomViewHolder)holder).soil.setText("토양 수분: "+data.getSoil());
+            ((CellViewAdapter.CustomViewHolder)holder).temp.setText("온도: "+data.getTemp());
             String path = "image/" + data.getModel_id() + "/" + data.getName() +".png";
             StorageReference pathRef = storage.getReference().child(path);
 

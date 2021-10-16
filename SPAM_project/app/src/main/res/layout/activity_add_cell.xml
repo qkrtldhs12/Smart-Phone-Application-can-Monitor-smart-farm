@@ -40,7 +40,7 @@
         android:background="@color/division"
         android:layout_height="1dp"
         android:orientation="horizontal" />
-    <EditText
+    <Spinner
         android:id="@+id/edit_device_model_id"
         android:layout_margin="25dp"
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:textSize="20dp"
         android:textColor="@color/black"
         android:textColorHint="@color/division"
-        android:backgroundTint="@color/division"/>
+        android:backgroundTint="@color/black"/>
     <EditText
         android:id="@+id/edit_cell_name"
         android:layout_margin="25dp"

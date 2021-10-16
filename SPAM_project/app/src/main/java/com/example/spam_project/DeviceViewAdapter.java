@@ -163,14 +163,14 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position) {
         Device_Data data = device.get(position);
         if(data.getViewtype() == 1) {
-            ((CustomViewHolder)holder).name.setText(data.getName());
-            ((CustomViewHolder)holder).connected.setText(data.getConnected());
-            ((CustomViewHolder)holder).model_id.setText(data.getModel_id());
-            ((CustomViewHolder)holder).door.setText(data.getDoor());
-            ((CustomViewHolder)holder).heat.setText(data.getHeat());
-            ((CustomViewHolder)holder).humidifier.setText(data.getHumidifier());
-            ((CustomViewHolder)holder).light.setText(data.getLight());
-            ((CustomViewHolder)holder).vent.setText(data.getVent());
+            ((CustomViewHolder)holder).name.setText("이름: "+data.getName());
+            ((CustomViewHolder)holder).connected.setText("화분 수: "+data.getConnected());
+            ((CustomViewHolder)holder).model_id.setText("ID: "+data.getModel_id());
+            ((CustomViewHolder)holder).door.setText("문: "+data.getDoor());
+            ((CustomViewHolder)holder).heat.setText("난방: "+data.getHeat());
+            ((CustomViewHolder)holder).humidifier.setText("가습기: "+data.getHumidifier());
+            ((CustomViewHolder)holder).light.setText("조명: "+data.getLight());
+            ((CustomViewHolder)holder).vent.setText("환풍기: "+data.getVent());
             String path = "image/" + data.getModel_id() + ".png";
             StorageReference pathRef = storage.getReference().child(path);
 

@@ -23,7 +23,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -78,12 +80,15 @@ public class DeviceView_fragment extends Fragment {
                                 device.remove(position);
                                 deviceViewAdapter.notifyItemRemoved(position);
                                 deviceViewAdapter.notifyItemRangeChanged(position, device.size());
+                                // User_Email에서 해당하는 모델명의 이메일을 삭제 후 no_registered로 수정
                                 db.collection("User_info").document(MainActivity.User_Email).collection("User_Device").document(delete)
                                         .delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                //DB 삭제 성공
+                                                Map<String, Object> reg = new HashMap<>();
+                                                reg.put("Email", "no_registered");
+                                                db.collection("User_Email").document(delete).set(reg);
                                             }
                                         });
                             }

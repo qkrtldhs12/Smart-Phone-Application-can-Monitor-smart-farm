@@ -33,8 +33,10 @@
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/item2_model_id"
+                android:layout_marginTop="10dp"
                 android:text="ID : default"
                 android:textColor="@color/black"
+                android:textSize="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -42,6 +44,7 @@
                 android:layout_marginTop="10dp"
                 android:text="이름 : No_Name"
                 android:textColor="@color/black"
+                android:textSize="12dp"
                 android:layout_below="@id/item2_model_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -50,6 +53,7 @@
                 android:layout_marginTop="10dp"
                 android:text="연결된 셀 : 0"
                 android:textColor="@color/black"
+                android:textSize="12dp"
                 android:layout_below="@id/item2_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -57,6 +61,7 @@
                 android:id="@+id/item2_vent"
                 android:layout_marginTop="10dp"
                 android:text="환기 : OFF"
+                android:textSize="12dp"
                 android:textColor="@color/black"
                 android:layout_below="@id/item2_connected"
                 android:layout_width="wrap_content"
@@ -73,7 +78,9 @@
 
             <TextView
                 android:id="@+id/item2_light"
+                android:layout_marginTop="10dp"
                 android:text="조명 : OFF"
+                android:textSize="12dp"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -81,6 +88,7 @@
                 android:id="@+id/item2_heat"
                 android:layout_marginTop="10dp"
                 android:text="온실 : OFF"
+                android:textSize="12dp"
                 android:textColor="@color/black"
                 android:layout_below="@id/item2_light"
                 android:layout_width="wrap_content"
@@ -89,6 +97,7 @@
                 android:id="@+id/item2_humidifier"
                 android:layout_marginTop="10dp"
                 android:text="가습 : OFF"
+                android:textSize="12dp"
                 android:textColor="@color/black"
                 android:layout_below="@id/item2_heat"
                 android:layout_width="wrap_content"
@@ -97,6 +106,7 @@
                 android:id="@+id/item2_door"
                 android:layout_marginTop="10dp"
                 android:text="도어 : CLOSE"
+                android:textSize="12dp"
                 android:textColor="@color/black"
                 android:layout_below="@id/item2_humidifier"
                 android:layout_width="wrap_content"
