@@ -83,24 +83,21 @@ class Cell(object):
         else:
             return True
 
-'''
+# 파이어베이스 연결용 비공개 키
+cred = credentials.Certificate("./spam-85498-firebase-adminsdk-wsavj-7375d295d7.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client() # Firestore 객체 생성
+
 # 센싱아두이노 시리얼포트 연결-라즈베리파이
 sen1=Serial('/dev/ttyACM0',9600)    #센싱 아두이노1
 sen2=Serial('/dev/ttyACM1',9600)    #센싱 아두이노2
 con=pyfirmata.Arduino('/dev/ttyACM2')     #컨트롤 아두이노
-'''
-# 센싱아두이노 시리얼포트 연결-윈도우10
-sen1=Serial('COM6',9600)    #센싱 아두이노1
-sen2=Serial('COM7',9600)    #센싱 아두이노2
-con=Serial('COM9',9600)     #컨트롤 아두이노
 
-cred = credentials.Certificate("./spam-85498-firebase-adminsdk-wsavj-7375d295d7.json")
-# 파이어베이스 연결용 비공개 키
-firebase_admin.initialize_app(cred)
-db = firestore.client() # Firestore 객체 생성
-
+# 전시회에서 사용하는 장비에 맞춰서 변경해야댐
 user_email = "caesar2746@gmail.com"
-model_id = "x001"   # 모델명(고유값)
+model_id = "default"   # 모델명(고유값)
+cell1 = "test1"
+cell2 = "화초"
 
 # 해당하는 모델명을 등록한 유저의 이메일 조회
 doc_ref = db.collection("User_Email").document("default")
@@ -122,32 +119,37 @@ for doc in doc_ref:
     cell = Cell(doc)
     All_Cell.append(cell)
 
+'''
 callback_done = threading.Event()
-
 def on_snapshot(doc_snapshot, changes, read_time):
-    '''
-    전송데이터 구성
-    케이스제어신호: 케이스뚜껑, 조명, 가습, 환기
-    셀단위제어신호: 수분, 열선
-    '''
+    
+    # 전송데이터 구성
+    # 케이스제어신호: 케이스뚜껑, 조명, 가습, 환기
+    # 셀단위제어신호: 수분, 열선
+    
     senData=[]
     for doc in doc_snapshot:
         # User_info ~ Received 경로에서 Received에 변화가 있을 경우 아래 로직이 실행됨
         # 앱에서 제어신호를 Received로 보내면 이쪽에서 처리할 것
-        senData
+        
+        senData[doc]
     callback_done.set()
 
 doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Control").document("Received")
 doc_watch = doc_ref.on_snapshot(on_snapshot)
-#con.writelines(str(conSign).encode('utf-8'))     # 제어아두이노로 문자열 전송
+'''
 
 # 아두이노 제어핀 설정
-water1=board.get_pin('d:6:o')
-water2=board.get_pin('d:7:o')
-heat1=board.get_pin('d:11:o')
-heat2=board.get_pin('d:12:o')
-aero1=board.get_pin('d:9:o')
-aero2=board.get_pin('d:10:o')
+#door1 = board.get_pin('s:2:o')
+#door2 = board.get_pin('s:3:o')
+airfan = board.get_pin('d:4:o')
+water1 = board.get_pin('d:6:o')
+water2 = board.get_pin('d:7:o')
+aero1 = board.get_pin('d:9:o')
+aero2 = board.get_pin('d:10:o')
+heat1 = board.get_pin('d:11:o')
+heat2 = board.get_pin('d:12:o')
+led = board.get_pin('d:13:o')
 
 # 아두이노 제어 메소드
 def makeSign(s1,t1,h1,s2,t2,h2):
@@ -242,23 +244,116 @@ while(1):
 
     makeSign(int(ref1[1]),int(ref1[2]),int(ref1[3]),int(ref2[1]),int(ref2[2]),int(ref2[3]))
     
+    # 제어신호를 받아 컨트롤하는 부분
+    # 디바이스 제어
+    doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Control").document("Received")
+    doc = doc_ref.get()
+    if doc.exists:
+        door = doc.get("door")
+        heat = doc.get("heat")
+        humidifier = doc.get("humidifier")
+        light = doc.get("light")
+        vent = doc.get("vent")
+
+        # 제어신호 처리하는부분
+        #print(door, heat, humidifier, light, vent)
+        # 열선제어
+        if heat == "ON":
+            heat1.write(1)
+            heat2.write(1)
+            time.sleep(1)
+        elif heat == "OFF":
+            heat1.write(0)
+            heat2.write(0)
+            time.sleep(1)
+        else:
+            pass
+        # 가습제어
+        if humidifier == "ON":
+            aero1.write(1)
+            aero2.write(1)
+            time.sleep(1)
+        elif humidifier == "OFF":
+            aero1.write(0)
+            aero2.write(0)
+            time.sleep(1)
+        else:
+            pass
+        # 조명제어
+        if light == "ON":
+            led.write(1)
+            time.sleep(1)
+        elif light == "OFF":
+            led.write(0)
+            time.sleep(1)
+        else:
+            pass
+        # 환기팬제어
+        if vent == "ON":
+            airfan.write(1)
+            time.sleep(1)
+        elif vent == "OFF":
+            airfan.write(0)
+            time.sleep(1)
+        else:
+            pass
+
+        # 기존의 제어요청데이터 삭제
+        doc_ref.update({
+            "connected" : firestore.DELETE_FIELD,
+            "door" : firestore.DELETE_FIELD,
+            "heat" : firestore.DELETE_FIELD,
+            "humidifier" : firestore.DELETE_FIELD,
+            "light" : firestore.DELETE_FIELD,
+            "model_id" : firestore.DELETE_FIELD,
+            "name" : firestore.DELETE_FIELD,
+            "vent" : firestore.DELETE_FIELD,
+            "viewtype" : firestore.DELETE_FIELD
+        })
+    
+    # 제어신호를 받아 컨트롤하는 부분
+    # 셀1 제어
+    doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell1).collection("Control")
+    doc = doc_ref.get()
+    if doc.exists:
+        water = doc.get("물줘")
+
+        # 제어신호 처리하는부분
+        #print(water)
+        # 수분공급제어
+        if water == "물줘":
+            water1.write(1)
+            time.sleep(1)
+            water1.write(0)
+            time.sleep(0.5)
+        else:
+            pass
+
+        # 기존의 제어요청데이터 삭제
+        doc_ref.update({
+            "물줘" : firestore.DELETE_FIELD
+        })
+    # 제어신호를 받아 컨트롤하는 부분
+    # 셀2 제어
+    doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell2).collection("Control")
+    doc = doc_ref.get()
+    if doc.exists:
+        water = doc.get("물줘")
+
+        # 제어신호 처리하는부분
+        #print(water)
+        # 수분공급제어
+        if water == "물줘":
+            water2.write(1)
+            time.sleep(1)
+            water2.write(0)
+            time.sleep(0.5)
+        else:
+            pass
+
+        # 기존의 제어요청데이터 삭제
+        doc_ref.update({
+            "물줘" : firestore.DELETE_FIELD
+        })
 
     time.sleep(10)
-
-    '''
-    # 현재 가지고 있는 모든 셀 정보(All_Cell)와 수신한 셀 정보(received_data)를 비교
-    for cell in All_Cell:
-        # All_Cell에서 name을 기준으로 received_data와 일치하는 셀 검색
-        if(received_data.get("name") == cell.to_dict().get("name")):
-            # 기존의 셀 정보와 수신한 셀 정보가 동일한지 검사 -> False면 불일치, True면 일치
-            if(cell.diff_check(received_data) == False):
-                # 셀 정보 업데이트
-                cell_update = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(received_data.get("name"))
-                cell_update.set(received_data)
-                All_Cell[cell]=Cell(received_data)
-                print('data')  
-            cell_update = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(received_data.get("name"))
-            cell_update.set(received_data)  
-    print('time')
-    time.sleep(5)
-    '''
