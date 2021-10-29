@@ -248,112 +248,125 @@ while(1):
     # 디바이스 제어
     doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Control").document("Received")
     doc = doc_ref.get()
-    if doc.exists:
-        door = doc.get("door")
-        heat = doc.get("heat")
-        humidifier = doc.get("humidifier")
-        light = doc.get("light")
-        vent = doc.get("vent")
+    try:
+        if doc.exists:
+            door = doc.get("door")
+            heat = doc.get("heat")
+            humidifier = doc.get("humidifier")
+            light = doc.get("light")
+            vent = doc.get("vent")
+            #print(door, heat, humidifier, light, vent)
 
-        # 제어신호 처리하는부분
-        #print(door, heat, humidifier, light, vent)
-        # 열선제어
-        if heat == "ON":
-            heat1.write(1)
-            heat2.write(1)
-            time.sleep(1)
-        elif heat == "OFF":
-            heat1.write(0)
-            heat2.write(0)
-            time.sleep(1)
-        else:
-            pass
-        # 가습제어
-        if humidifier == "ON":
-            aero1.write(1)
-            aero2.write(1)
-            time.sleep(1)
-        elif humidifier == "OFF":
-            aero1.write(0)
-            aero2.write(0)
-            time.sleep(1)
-        else:
-            pass
-        # 조명제어
-        if light == "ON":
-            led.write(1)
-            time.sleep(1)
-        elif light == "OFF":
-            led.write(0)
-            time.sleep(1)
-        else:
-            pass
-        # 환기팬제어
-        if vent == "ON":
-            airfan.write(1)
-            time.sleep(1)
-        elif vent == "OFF":
-            airfan.write(0)
-            time.sleep(1)
-        else:
-            pass
+            # 제어신호 처리하는부분
+            # 열선제어
+            if heat == "ON":
+                heat1.write(1)
+                heat2.write(1)
+                time.sleep(1)
+            elif heat == "OFF":
+                heat1.write(0)
+                heat2.write(0)
+                time.sleep(1)
+            else:
+                pass
+            # 가습제어
+            if humidifier == "ON":
+                aero1.write(1)
+                aero2.write(1)
+                time.sleep(1)
+            elif humidifier == "OFF":
+                aero1.write(0)
+                aero2.write(0)
+                time.sleep(1)
+            else:
+                pass
+            # 조명제어
+            if light == "ON":
+                led.write(1)
+                time.sleep(1)
+            elif light == "OFF":
+                led.write(0)
+                time.sleep(1)
+            else:
+                pass
+            # 환기팬제어
+            if vent == "ON":
+                airfan.write(1)
+                time.sleep(1)
+            elif vent == "OFF":
+                airfan.write(0)
+                time.sleep(1)
+            else:
+                pass
 
-        # 기존의 제어요청데이터 삭제
-        doc_ref.update({
-            "connected" : firestore.DELETE_FIELD,
-            "door" : firestore.DELETE_FIELD,
-            "heat" : firestore.DELETE_FIELD,
-            "humidifier" : firestore.DELETE_FIELD,
-            "light" : firestore.DELETE_FIELD,
-            "model_id" : firestore.DELETE_FIELD,
-            "name" : firestore.DELETE_FIELD,
-            "vent" : firestore.DELETE_FIELD,
-            "viewtype" : firestore.DELETE_FIELD
-        })
+            # 기존의 제어요청데이터 삭제
+            doc_ref.update({
+                "connected" : firestore.DELETE_FIELD,
+                "door" : firestore.DELETE_FIELD,
+                "heat" : firestore.DELETE_FIELD,
+                "humidifier" : firestore.DELETE_FIELD,
+                "light" : firestore.DELETE_FIELD,
+                "model_id" : firestore.DELETE_FIELD,
+                "name" : firestore.DELETE_FIELD,
+                "vent" : firestore.DELETE_FIELD,
+                "viewtype" : firestore.DELETE_FIELD
+            })
+    except:
+        print("Error Code: 100")
     
     # 제어신호를 받아 컨트롤하는 부분
     # 셀1 제어
     doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell1).collection("Control")
     doc = doc_ref.get()
-    if doc.exists:
-        water = doc.get("물줘")
+    try:
+        if doc.exists:
+            water = doc.get("물줘")
+            #print(water)
 
-        # 제어신호 처리하는부분
-        #print(water)
-        # 수분공급제어
-        if water == "물줘":
-            water1.write(1)
-            time.sleep(1)
-            water1.write(0)
-            time.sleep(0.5)
-        else:
-            pass
+            # 제어신호 처리하는부분
+            # 수분공급제어
+            if water == "물줘":
+                water1.write(1)
+                time.sleep(1)
+                water1.write(0)
+                time.sleep(0.5)
+            else:
+                water1.write(0)
+                time.sleep(0.5)
 
-        # 기존의 제어요청데이터 삭제
-        doc_ref.update({
-            "물줘" : firestore.DELETE_FIELD
-        })
+            # 기존의 제어요청데이터 삭제
+            doc_ref.update({
+                "물줘" : firestore.DELETE_FIELD
+            })
+    except:
+        print("Error Code: 100")
+
     # 제어신호를 받아 컨트롤하는 부분
     # 셀2 제어
     doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell2).collection("Control")
     doc = doc_ref.get()
-    if doc.exists:
-        water = doc.get("물줘")
+    try:
+        if doc.exists:
+            water = doc.get("물줘")
+            #print(water)
 
-        # 제어신호 처리하는부분
-        #print(water)
-        # 수분공급제어
-        if water == "물줘":
-            water2.write(1)
-            time.sleep(1)
-            water2.write(0)
-            time.sleep(0.5)
-        else:
-            pass
+            # 제어신호 처리하는부분
+            # 수분공급제어
+            if water == "물줘":
+                water2.write(1)
+                time.sleep(1)
+                water2.write(0)
+                time.sleep(0.5)
+            else:
+                water2.write(0)
+                time.sleep(0.5)
 
-        # 기존의 제어요청데이터 삭제
-        doc_ref.update({
-            "물줘" : firestore.DELETE_FIELD
-        })
+            # 기존의 제어요청데이터 삭제
+            doc_ref.update({
+                "물줘" : firestore.DELETE_FIELD
+            })
+    except:
+        print("Error Code: 100")
 
-    time.sleep(10)
+    # 한 번 스캔하는 일련의 과정 후 대기시간 -> 너무 짧으면 파이어베이스 업글해야댐
+    time.sleep(5)
