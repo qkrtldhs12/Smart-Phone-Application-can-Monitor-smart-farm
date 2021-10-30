@@ -6,7 +6,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from datetime import datetime
 from serial import Serial
-import pyfirmata
+from pyfirmata import Arduino, util
 
 class Device(object):
     def __init__(self, source):
@@ -89,9 +89,9 @@ firebase_admin.initialize_app(cred)
 db = firestore.client() # Firestore 객체 생성
 
 # 센싱아두이노 시리얼포트 연결-라즈베리파이
-sen1=Serial('/dev/ttyACM0',9600)    #센싱 아두이노1
-sen2=Serial('/dev/ttyACM1',9600)    #센싱 아두이노2
-con=pyfirmata.Arduino('/dev/ttyACM2')     #컨트롤 아두이노
+sen1=Serial('/dev/ttyUSB0',9600)    #센싱 아두이노1
+sen2=Serial('/dev/ttyUSB1',9600)    #센싱 아두이노2
+board=Arduino('/dev/ttyACM0')     #컨트롤 아두이노
 
 # 전시회에서 사용하는 장비에 맞춰서 변경해야댐
 user_email = "caesar2746@gmail.com"
@@ -210,7 +210,7 @@ while(1):
         ref1[3]=ref1[3][:-6]
         print(ref1) 
     received_data1 = {
-        "name": "test01",
+        "name": "test1",
         "model_id": model_id,
         "humi": ref1[3],
         "soil": ref1[1],
@@ -242,7 +242,7 @@ while(1):
     cell2_update.set(received_data2)
     # print(received_data2)
 
-    makeSign(int(ref1[1]),int(ref1[2]),int(ref1[3]),int(ref2[1]),int(ref2[2]),int(ref2[3]))
+    #makeSign(int(ref1[1]),int(ref1[2]),int(ref1[3]),int(ref2[1]),int(ref2[2]),int(ref2[3]))
     
     # 제어신호를 받아 컨트롤하는 부분
     # 디바이스 제어
@@ -260,12 +260,12 @@ while(1):
             # 제어신호 처리하는부분
             # 열선제어
             if heat == "ON":
-                heat1.write(1)
-                heat2.write(1)
-                time.sleep(1)
-            elif heat == "OFF":
                 heat1.write(0)
                 heat2.write(0)
+                time.sleep(1)
+            elif heat == "OFF":
+                heat1.write(1)
+                heat2.write(1)
                 time.sleep(1)
             else:
                 pass
@@ -282,24 +282,33 @@ while(1):
                 pass
             # 조명제어
             if light == "ON":
-                led.write(1)
+                led.write(0)
                 time.sleep(1)
             elif light == "OFF":
-                led.write(0)
+                led.write(1)
                 time.sleep(1)
             else:
                 pass
             # 환기팬제어
             if vent == "ON":
-                airfan.write(1)
+                airfan.write(0)
                 time.sleep(1)
             elif vent == "OFF":
-                airfan.write(0)
+                airfan.write(1)
                 time.sleep(1)
             else:
                 pass
-
+            
+            up_data = {
+                "heat": heat,
+                "humidifier": humidifier,
+                "light": light,
+                "vent": vent
+            }
+            doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id)
+            doc_ref.update(up_data)
             # 기존의 제어요청데이터 삭제
+            doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Control").document("Received")
             doc_ref.update({
                 "connected" : firestore.DELETE_FIELD,
                 "door" : firestore.DELETE_FIELD,
@@ -312,22 +321,22 @@ while(1):
                 "viewtype" : firestore.DELETE_FIELD
             })
     except:
-        print("Error Code: 100")
+        print("wait")
     
     # 제어신호를 받아 컨트롤하는 부분
     # 셀1 제어
-    doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell1).collection("Control")
+    doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell1).collection("Control").document("Received")
     doc = doc_ref.get()
     try:
         if doc.exists:
-            water = doc.get("물줘")
+            water = doc.get("Water")
             #print(water)
 
             # 제어신호 처리하는부분
             # 수분공급제어
-            if water == "물줘":
+            if water == "ON":
                 water1.write(1)
-                time.sleep(1)
+                time.sleep(2.5)
                 water1.write(0)
                 time.sleep(0.5)
             else:
@@ -336,25 +345,25 @@ while(1):
 
             # 기존의 제어요청데이터 삭제
             doc_ref.update({
-                "물줘" : firestore.DELETE_FIELD
+                "Water" : firestore.DELETE_FIELD
             })
     except:
-        print("Error Code: 100")
+        print("wait")
 
     # 제어신호를 받아 컨트롤하는 부분
     # 셀2 제어
-    doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell2).collection("Control")
+    doc_ref = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(cell2).collection("Control").document("Received")
     doc = doc_ref.get()
     try:
         if doc.exists:
-            water = doc.get("물줘")
+            water = doc.get("Water")
             #print(water)
 
             # 제어신호 처리하는부분
             # 수분공급제어
-            if water == "물줘":
+            if water == "ON":
                 water2.write(1)
-                time.sleep(1)
+                time.sleep(2.5)
                 water2.write(0)
                 time.sleep(0.5)
             else:
@@ -363,10 +372,10 @@ while(1):
 
             # 기존의 제어요청데이터 삭제
             doc_ref.update({
-                "물줘" : firestore.DELETE_FIELD
+                "Water" : firestore.DELETE_FIELD
             })
     except:
-        print("Error Code: 100")
-
+        print("wait")
+    
     # 한 번 스캔하는 일련의 과정 후 대기시간 -> 너무 짧으면 파이어베이스 업글해야댐
     time.sleep(5)
