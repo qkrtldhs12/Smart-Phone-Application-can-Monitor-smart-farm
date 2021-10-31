@@ -2,11 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/back_color"/>
+        android:drawable="@color/white"/>
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/splash_image"/>
+            android:src="@drawable/splash_dancing"/>
     </item>
 
 </layer-list>

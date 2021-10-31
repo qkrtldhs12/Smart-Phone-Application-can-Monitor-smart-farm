@@ -43,17 +43,19 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
         mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("User_Email", mAuth.getCurrentUser().getEmail());
+            startActivity(intent);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+            finish();
+        }
+
         lg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("User_Email", mAuth.getCurrentUser().getEmail());
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                } else {
-                    signIn();
-                }
+                signIn();
             }
         });
     }
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtra("User_Email", user.getEmail());
             startActivity(intent);
             overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+            finish();
         }
     }
 

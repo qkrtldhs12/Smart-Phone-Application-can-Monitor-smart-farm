@@ -72,6 +72,7 @@ public class CellView_fragment extends Fragment {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Item 삭제
                                 String delete = cell.get(position).getName();
+                                String model_id = cell.get(position).getModel_id();
                                 cell.remove(position);
                                 cellViewAdapter.notifyItemRemoved(position);
                                 cellViewAdapter.notifyItemRangeChanged(position, cell.size());
@@ -81,7 +82,8 @@ public class CellView_fragment extends Fragment {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    //DB 삭제 성공
+                                                    String path = "image/" + model_id + "/" + delete + ".png";
+                                                    storageRef.child(path).delete();
                                                 }
                                             });
                                 }
@@ -126,7 +128,7 @@ public class CellView_fragment extends Fragment {
             public void onBtnClick(View view, int position) {
                 System.out.println("이미지 버튼 클릭");
                 Map<String, Object> req_water = new HashMap<>();
-                req_water.put("물줘", "물줘");
+                req_water.put("Water", "ON");
                 db.collection("User_info").document(MainActivity.User_Email).collection("User_Device").document(cellViewAdapter.getItem(position).getModel_id())
                         .collection("Cell_Data").document(cellViewAdapter.getItem(position).getName()).collection("Control")
                         .document("Received").set(req_water);

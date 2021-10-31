@@ -17,11 +17,17 @@ import com.example.spam_project.DeviceViewAdapter;
 import com.example.spam_project.Device_Data;
 import com.example.spam_project.MainActivity;
 import com.example.spam_project.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +36,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,12 +87,33 @@ public class DeviceView_fragment extends Fragment {
                                 device.remove(position);
                                 deviceViewAdapter.notifyItemRemoved(position);
                                 deviceViewAdapter.notifyItemRangeChanged(position, device.size());
+
+                                //삭제할 디바이스 하위 경로를 검색하고, 해당하는 셀 삭제
+                                db.collection("User_info").document(MainActivity.User_Email).collection("User_Device").document(delete).collection("Cell_Data")
+                                        .whereEqualTo("model_id", delete)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    for(QueryDocumentSnapshot document : task.getResult()){
+                                                        String cell_img_path = "image/" + delete + "/" + document.getId() + ".png";
+                                                        storageRef.child(cell_img_path).delete();
+                                                        db.collection("User_info").document(MainActivity.User_Email).collection("User_Device").document(delete).collection("Cell_Data").document(document.getId()).delete();
+                                                    }
+                                                }
+                                            }
+                                        });
+
+
                                 // User_Email에서 해당하는 모델명의 이메일을 삭제 후 no_registered로 수정
                                 db.collection("User_info").document(MainActivity.User_Email).collection("User_Device").document(delete)
                                         .delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
+                                                String device_img_path = "image/" + delete + ".png";
+                                                storageRef.child(device_img_path).delete();
                                                 Map<String, Object> reg = new HashMap<>();
                                                 reg.put("Email", "no_registered");
                                                 db.collection("User_Email").document(delete).set(reg);

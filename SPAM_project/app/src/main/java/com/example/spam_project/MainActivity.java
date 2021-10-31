@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.spam_project.navigation.CellView_fragment;
 import com.example.spam_project.navigation.DeviceView_fragment;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static String User_Email;
     public static int Cell_Counter;
     public static boolean Fragment_State;
+    private long time = 0;
 
     public interface Device_DataListener {
         void onSuccess(List<Device_Data> result);
@@ -192,6 +194,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - time >= 2000) {
+            time = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "한번 더 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            finish();
+        }
     }
 
 

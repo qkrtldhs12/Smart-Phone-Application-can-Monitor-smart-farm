@@ -159,25 +159,20 @@
                     android:layout_margin="20dp">
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
 
                         <ImageView
                             android:id="@+id/control_door"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/door_selector" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/control_door"
-                            android:layout_centerHorizontal="true"
-                            android:text="문"
-                            android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_below="@+id/control_door" />
                     </RelativeLayout>
 
                     <RelativeLayout

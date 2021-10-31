@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_color"
+    android:background="@drawable/back_9"
     tools:context=".LoginActivity">
     <ImageView
         android:id="@+id/logo"
         android:layout_marginTop="100dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="35dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:src="@drawable/logo_spam"/>
     <LinearLayout
         android:layout_below="@id/logo"
@@ -23,11 +23,12 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/lgn_button"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/btn_login"/>
+                android:src="@drawable/google_login"/>
         </RelativeLayout>
     </LinearLayout>
 
