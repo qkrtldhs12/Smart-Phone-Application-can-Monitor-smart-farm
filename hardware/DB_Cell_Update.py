@@ -200,47 +200,55 @@ def makeSign(s1,t1,h1,s2,t2,h2):
 
 # DB에 접근하는 횟수 감소를 위해서 일정 주기가 아닌 센서값에 변화가 생길 때만 DB에 갱신
 while(1):
-    # 셀1로부터 데이터를 받는 부분
-    # 메소드로 만드는게 맞는데 테스트용
-    if sen1.readable():
-        res1=sen1.readline()
-        res1=str(res1)
-        ref1=list(res1.split(','))
-        ref1[0]=ref1[0][-1]
-        ref1[3]=ref1[3][:-6]
-        print(ref1) 
-    received_data1 = {
-        "name": "test1",
-        "model_id": model_id,
-        "humi": ref1[3],
-        "soil": ref1[1],
-        "temp": ref1[2],
-        "viewtype": 1
-    }
-    cell1_update = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(received_data1.get("name"))
-    cell1_update.set(received_data1)
-    # print(received_data1)
+    try:
+        # 셀1로부터 데이터를 받는 부분
+        # 메소드로 만드는게 맞는데 테스트용
+        if sen1.readable():
+            res1=sen1.readline()
+            res1=str(res1)
+            ref1=list(res1.split(','))
+            ref1[0]=ref1[0][-1]
+            ref1[3]=ref1[3][:-6]
+            print(ref1) 
     
-    # 셀2로부터 데이터를 받는 부분
-    # 메소드로 만드는게 맞는데 테스트용
-    if sen2.readable():
-        res2=sen2.readline()
-        res2=str(res2)
-        ref2=list(res2.split(','))
-        ref2[0]=ref2[0][-1]
-        ref2[3]=ref2[3][:-6]
-        print(ref2) 
-    received_data2 = {
-        "name": "화초",
-        "model_id": model_id,
-        "humi": ref2[3],
-        "soil": ref2[1],
-        "temp": ref2[2],
-        "viewtype": 1
-    }
-    cell2_update = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(received_data2.get("name"))
-    cell2_update.set(received_data2)
-    # print(received_data2)
+        received_data1 = {
+            "name": "test1",
+            "model_id": model_id,
+            "humi": ref1[3],
+            "soil": ref1[1],
+            "temp": ref1[2],
+            "viewtype": 1
+        }
+        cell1_update = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(received_data1.get("name"))
+        cell1_update.set(received_data1)
+        # print(received_data1)
+    except:
+        print('cell1 can`t read...')
+    
+    try:
+        # 셀2로부터 데이터를 받는 부분
+        # 메소드로 만드는게 맞는데 테스트용
+        if sen2.readable():
+            res2=sen2.readline()
+            res2=str(res2)
+            ref2=list(res2.split(','))
+            ref2[0]=ref2[0][-1]
+            ref2[3]=ref2[3][:-6]
+            print(ref2)
+
+        received_data2 = {
+            "name": "화초",
+            "model_id": model_id,
+            "humi": ref2[3],
+            "soil": ref2[1],
+            "temp": ref2[2],
+            "viewtype": 1
+        }
+        cell2_update = db.collection("User_info").document(user_email).collection("User_Device").document(model_id).collection("Cell_Data").document(received_data2.get("name"))
+        cell2_update.set(received_data2)
+        # print(received_data2)
+    except:
+        print('cell2 can`t read...')
 
     #makeSign(int(ref1[1]),int(ref1[2]),int(ref1[3]),int(ref2[1]),int(ref2[2]),int(ref2[3]))
     
@@ -321,7 +329,7 @@ while(1):
                 "viewtype" : firestore.DELETE_FIELD
             })
     except:
-        print("wait")
+        print("device wait...")
     
     # 제어신호를 받아 컨트롤하는 부분
     # 셀1 제어
@@ -348,7 +356,7 @@ while(1):
                 "Water" : firestore.DELETE_FIELD
             })
     except:
-        print("wait")
+        print("cell1 wait...")
 
     # 제어신호를 받아 컨트롤하는 부분
     # 셀2 제어
@@ -375,7 +383,7 @@ while(1):
                 "Water" : firestore.DELETE_FIELD
             })
     except:
-        print("wait")
+        print("cell2 wait...")
     
     # 한 번 스캔하는 일련의 과정 후 대기시간 -> 너무 짧으면 파이어베이스 업글해야댐
     time.sleep(5)
