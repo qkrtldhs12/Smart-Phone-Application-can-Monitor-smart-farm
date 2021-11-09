@@ -1,8 +1,10 @@
 package com.example.spam_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,19 +12,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceControlActivity extends AppCompatActivity {
 
-    ImageView door, humidifier, vent, light, heat;
+    ImageView door, humidifier, vent, light, heat, image;
     TextView device_name;
     Button undo, request;
     String model_id, connected, name;
     List<String> device_state = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
     String req_door, req_heat, req_humidifier, req_light, req_vent;
 
     @Override
@@ -34,7 +46,18 @@ public class DeviceControlActivity extends AppCompatActivity {
         connected = intent.getStringExtra("connected");
         name = intent.getStringExtra("name");
 
-        door = (ImageView)findViewById(R.id.control_door);
+        image = (ImageView)findViewById(R.id.control_device_image);
+        String path = "image/" + model_id + ".png";
+        storageRef.child(path).getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        System.out.println("이미지 등록 테스트" + path);
+                        Glide.with(getApplicationContext()).load(uri).into(image);
+                    }
+                });
+
+        door = (ImageView) findViewById(R.id.control_door);
         humidifier = (ImageView)findViewById(R.id.control_humidifier);
         vent = (ImageView)findViewById(R.id.control_vent);
         light = (ImageView)findViewById(R.id.control_light);
@@ -44,6 +67,7 @@ public class DeviceControlActivity extends AppCompatActivity {
         request = (Button)findViewById(R.id.control_request);
 
         device_name.setText(name);
+
 
         device_state.add(intent.getStringExtra("door"));
         device_state.add(intent.getStringExtra("humidifier"));
